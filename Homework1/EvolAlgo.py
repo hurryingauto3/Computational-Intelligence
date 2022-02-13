@@ -3,6 +3,7 @@ from logging import error
 from random import random, randint, choice
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 
 
 class SelectionScheme:
@@ -24,6 +25,7 @@ class SelectionScheme:
         pass
 
 class EvolAlgo:
+    @staticmethod
     def __init__(self, fileName, popSize, numoffSpring, numGen, mutRate, numIter, selScheme):
 
         self.fileData = self.readFile(fileName)
@@ -34,6 +36,7 @@ class EvolAlgo:
         self.mutRate = mutRate
         self.numIter = numIter
         self.pop = []
+        self.popFitness = []
         pass
 
     def readFile(self, fileName):
@@ -43,6 +46,7 @@ class EvolAlgo:
         f.close()
         return lines
 
+    
     def crossover(self):
         pass
 
@@ -50,28 +54,28 @@ class EvolAlgo:
         pass
 
     def popInit(self):
+        
         pass
     
     def selScheme(self):
         if self.selScheme == "fp":
-            SelectionScheme.fitnessProp(self.pop, self.compFitness())
+            return SelectionScheme.fitnessProp(self.pop, self.compFitness())
         elif self.selScheme == "rb":
-            SelectionScheme.rankBased()
+            return SelectionScheme.rankBased()
         elif self.selScheme == "bt":
-            SelectionScheme.binaryTournament()
+            return SelectionScheme.binaryTournament()
         elif self.selScheme == "tr":
-            SelectionScheme.truncation()
+            return SelectionScheme.truncation()
         elif self.selScheme == "rd":
-            SelectionScheme.random()
+            return SelectionScheme.random()
         else:
             error("Invalid selection scheme")
         pass
 
     def compFitnessAll(self):
-        popFitness = []
+
         for i in range(len(self.popSize)):
-            popFitness.append(self.compFitness(self.pop[i]))
-        return popFitness   
+            self.popFitness.append(self.compFitness(self.pop[i])
 
     def compFitness(self):
         pass
@@ -79,8 +83,12 @@ class EvolAlgo:
     def run(self):
 
         for i in range(self.numIter):
-            for i in range(self.popInit):
-                self.pop.append(self.crossover())
+            self.popInit()
+            self.compFitnessAll()
+            self.selScheme()
+            self.crossover()
+            self.mutation()
+        
         pass
 
 
