@@ -54,7 +54,6 @@ class EvolAlgo:
         pass
 
     def popInit(self):
-        
         pass
     
     def selScheme(self):
@@ -75,7 +74,7 @@ class EvolAlgo:
     def compFitnessAll(self):
 
         for i in range(len(self.popSize)):
-            self.popFitness.append(self.compFitness(self.pop[i])
+            self.popFitness.append(self.compFitness(self.pop[i]))
 
     def compFitness(self):
         pass
@@ -88,7 +87,6 @@ class EvolAlgo:
             self.selScheme()
             self.crossover()
             self.mutation()
-        
         pass
 
 
