@@ -31,11 +31,11 @@ class Knapsack(EvolAlgo):
 
 
 
-ks = Knapsack(selScheme="tr")
-ks.popInit()
-ks.compFitnessAll()
+# ks = Knapsack(selScheme="tr")
+# ks.popInit()
+# ks.compFitnessAll()
 
-print(ks.bestFitness())
-print(ks.avgFitness())
-print(ks.popFitness)
-ks.schemeSel()
+# print(ks.bestFitness())
+# print(ks.avgFitness())
+# print(ks.popFitness)
+# ks.schemeSel()
