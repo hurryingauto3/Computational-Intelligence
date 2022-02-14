@@ -19,20 +19,20 @@ class SelectionScheme:
         pass
 
     def truncation(fitness):
-        popFitness = {}
-        print(len(fitness))
-        for i in range(len(fitness)):
-            popFitness[i] = fitness[i]
-            popFitness = sorted(popFitness.items(), key=lambda x: x[1], reverse=True)
+        popFitness = [(k,v) for k,v in fitness.items()]
+
 
         print(popFitness)
+            
 
+
+        
     def random():
         pass
 
 class EvolAlgo:
     @staticmethod
-    def __init__(self, fileName, popSize, numoffSpring, numGen, mutRate, numIter, selScheme):
+    def __init__(self, fileName, popSize = 100, numoffSpring = 10, numGen = 100, mutRate = 0.5, numIter = 100, selScheme = "fp"):
 
         self.fileData = self.readFile(fileName)
         self.selScheme = selScheme
@@ -41,9 +41,8 @@ class EvolAlgo:
         self.numGen = numGen
         self.mutRate = mutRate
         self.numIter = numIter
+        self.popFitness = {}
         self.pop = []
-        self.popFitness = []
-        pass
 
     def readFile(self, fileName):
 
@@ -51,7 +50,6 @@ class EvolAlgo:
         lines = f.readlines()
         f.close()
         return lines
-
     
     def crossover(self):
         pass
@@ -70,7 +68,7 @@ class EvolAlgo:
         elif self.selScheme == "bt":
             return SelectionScheme.binaryTournament()
         elif self.selScheme == "tr":
-            return SelectionScheme.truncation(self.popFitness)
+            return SelectionScheme.truncation(self.sortFitness())
         elif self.selScheme == "rd":
             return SelectionScheme.random()
         else:
@@ -80,7 +78,14 @@ class EvolAlgo:
     def compFitnessAll(self):
 
         for i in range(self.popSize):
-            self.popFitness.append(self.compFitness(self.pop[i]))
+            self.popFitness[i] = self.compFitness(self.pop[i])
+
+    def bestFitness(self):
+        return max(self.popFitness.values())
+    def avgFitness(self):
+        return sum(self.popFitness.values())/self.popSize
+    def sortFitness(self):
+        return {k:v for k,v in sorted(self.popFitness.items(), key=lambda x: x[1])}
 
     def compFitness(self, gene):
         pass
