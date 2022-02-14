@@ -9,17 +9,23 @@ import matplotlib.pyplot as plt
 class SelectionScheme:
     @staticmethod
 
-    def fitnessProp(population, fitness):
+    def fitnessProp(fitness):
         pass
 
-    def rankBased(population):
+    def rankBased(fitness):
         pass
 
     def binaryTournament():
         pass
 
-    def truncation():
-        pass
+    def truncation(fitness):
+        popFitness = {}
+        print(len(fitness))
+        for i in range(len(fitness)):
+            popFitness[i] = fitness[i]
+            popFitness = sorted(popFitness.items(), key=lambda x: x[1], reverse=True)
+
+        print(popFitness)
 
     def random():
         pass
@@ -56,15 +62,15 @@ class EvolAlgo:
     def popInit(self):
         pass
     
-    def selScheme(self):
+    def schemeSel(self):
         if self.selScheme == "fp":
-            return SelectionScheme.fitnessProp(self.pop, self.compFitness())
+            return SelectionScheme.fitnessProp(self.compFitness())
         elif self.selScheme == "rb":
             return SelectionScheme.rankBased()
         elif self.selScheme == "bt":
             return SelectionScheme.binaryTournament()
         elif self.selScheme == "tr":
-            return SelectionScheme.truncation()
+            return SelectionScheme.truncation(self.popFitness)
         elif self.selScheme == "rd":
             return SelectionScheme.random()
         else:
@@ -73,10 +79,10 @@ class EvolAlgo:
 
     def compFitnessAll(self):
 
-        for i in range(len(self.popSize)):
+        for i in range(self.popSize):
             self.popFitness.append(self.compFitness(self.pop[i]))
 
-    def compFitness(self):
+    def compFitness(self, gene):
         pass
 
     def run(self):
