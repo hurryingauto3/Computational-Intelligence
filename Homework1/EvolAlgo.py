@@ -93,18 +93,16 @@ class EvolAlgo:
         pass
 
     def run(self):
-
+        log = []
         for i in range(self.numIter):
             self.popInit()
-            for i in range(self.numGen):
+            for j in range(self.numGen):
                 self.compFitnessAll()
                 self.crossover(self.schemeSel())
                 self.mutation()
                 self.compFitnessAll()
                 self.schemeSel(kill=True)
-                print(self.avgFitness())
-            
-        pass
-
-
-
+                log.append("Iteration: " + str(i+1) + ", " + "Generation: " + str(j+1) + ", " + "Best Fitness: " + str(self.bestFitness()) + ", " + "Average Fitness: " + str(self.avgFitness()) + "\n")
+        f = open("log.txt", "w")
+        f.writelines(log)
+        f.close()
