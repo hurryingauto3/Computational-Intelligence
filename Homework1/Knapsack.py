@@ -37,7 +37,10 @@ class Knapsack(EvolAlgo):
 
         self.pop.extend(offspringList)
 
-    def mutation(self): [shuffle(i) for i in self.pop]
+    def mutation(self): 
+        for i in range(len(self.pop)):
+            if random() < self.mutRate:
+                shuffle(self.pop[i])
 
 ks = Knapsack("f2_l-d_kp_20_878", numGen = 10, selScheme="tr")
 ks.run()
