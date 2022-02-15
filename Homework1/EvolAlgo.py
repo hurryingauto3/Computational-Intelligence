@@ -78,10 +78,8 @@ class EvolAlgo:
         pass
 
     def compFitnessAll(self):
-
         for i in range(self.popSize):
             self.popFitness[i] = self.compFitness(self.pop[i])
-
     def bestFitness(self):
         return max(self.popFitness.values())
     def avgFitness(self):
@@ -102,7 +100,9 @@ class EvolAlgo:
                 self.mutation()
                 self.compFitnessAll()
                 self.schemeSel(kill=True)
-                log.append("Iteration: " + str(i+1) + ", " + "Generation: " + str(j+1) + ", " + "Best Fitness: " + str(self.bestFitness()) + ", " + "Average Fitness: " + str(self.avgFitness()) + "\n")
+                log.append("Iteration: " + str(i+1) + ", " + "Generation: " + str(j+1) + ", " + "Best Fitness: " 
+                + str(self.bestFitness()) + ", " + "Average Fitness: " + str(self.avgFitness()) + "\n")
+        
         f = open("log.txt", "w")
         f.writelines(log)
         f.close()

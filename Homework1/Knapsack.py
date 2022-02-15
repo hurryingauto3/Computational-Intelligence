@@ -12,18 +12,16 @@ class Knapsack(EvolAlgo):
         self.knapsackCapacity = int(self.knapsackItems[0][1]) #knapsack capacity
         self.knapsackItems.pop(0)
         
-    def popInit(self):
-        self.pop = [np.random.randint(2, size = self.knapsackItemNum) for i in range(self.popSize)]
+    def popInit(self): self.pop = [np.random.randint(2, size = self.knapsackItemNum) for i in range(self.popSize)]
         
     def compFitness(self, gene):
-      
         Sum_KW = sum([self.knapsackItems[i][0]*gene[i] for i in range(len(gene))])
         if Sum_KW > self.knapsackCapacity:
             return 0
         Sum_KV = sum([self.knapsackItems[i][1]*gene[i] for i in range(len(gene))])
         return Sum_KV*(1/Sum_KW)
 
-    def crossover(self, parents: dict()):
+    def crossover(self, parents):
         offspring = 0
         offspringList = []
         while(offspring != self.numoffSpring):
@@ -39,9 +37,7 @@ class Knapsack(EvolAlgo):
 
         self.pop.extend(offspringList)
 
-    def mutation(self):
-        for i in self.pop:
-            shuffle(i)
+    def mutation(self): [shuffle(i) for i in self.pop]
 
 ks = Knapsack("f2_l-d_kp_20_878", numGen = 10, selScheme="tr")
 ks.run()
