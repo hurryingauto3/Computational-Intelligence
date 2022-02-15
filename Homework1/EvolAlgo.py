@@ -18,14 +18,11 @@ class SelectionScheme:
     def binaryTournament():
         pass
 
-    def truncation(fitness):
+    def truncation(N, fitness):
         popFitness = [(k,v) for k,v in fitness.items()]
-
-
-        print(popFitness)
-            
-
-
+        popFitness = popFitness[0:N]
+        popFitness = dict(popFitness)
+        return popFitness
         
     def random():
         pass
@@ -60,7 +57,12 @@ class EvolAlgo:
     def popInit(self):
         pass
     
-    def schemeSel(self):
+    def schemeSel(self, kill=False):
+        if kill:
+            N = self.popSize
+        else:
+            N = self.numoffSpring*2
+
         if self.selScheme == "fp":
             return SelectionScheme.fitnessProp(self.compFitness())
         elif self.selScheme == "rb":
@@ -68,7 +70,7 @@ class EvolAlgo:
         elif self.selScheme == "bt":
             return SelectionScheme.binaryTournament()
         elif self.selScheme == "tr":
-            return SelectionScheme.truncation(self.sortFitness())
+            return SelectionScheme.truncation(N, self.sortFitness())
         elif self.selScheme == "rd":
             return SelectionScheme.random()
         else:
@@ -94,10 +96,14 @@ class EvolAlgo:
 
         for i in range(self.numIter):
             self.popInit()
-            self.compFitnessAll()
-            self.selScheme()
-            self.crossover()
-            self.mutation()
+            for i in range(self.numGen):
+                self.compFitnessAll()
+                self.crossover(self.schemeSel())
+                self.mutation()
+                self.compFitnessAll()
+                self.schemeSel(kill=True)
+                print(self.avgFitness())
+            
         pass
 
 
