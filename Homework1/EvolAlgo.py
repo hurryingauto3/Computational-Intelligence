@@ -1,16 +1,8 @@
 # Class of generic evolutionary algorithm
 from logging import error
-<<<<<<< HEAD
-from random import random, randint, choice
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from sympy import maximum
-
-=======
 import random as rd
+import numpy as np
 from numpy.random import shuffle
->>>>>>> 22bfd52607d9d32c64b97e00cbaf0b304af5f63f
 
 class SelectionScheme:
     @staticmethod
@@ -39,9 +31,8 @@ class SelectionScheme:
         popFitness = dict(popFitness)
         return popFitness
         
-    def random(pop):
-        random
-        pass
+    def random(N, fitness):
+        return rd.choices(fitness.value, k = N)
 
 class EvolAlgo:
     @staticmethod
