@@ -4,18 +4,28 @@ from random import random, randint, choice
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from sympy import maximum
 
 
 class SelectionScheme:
     @staticmethod
 
     def fitnessProp(fitness):
-        pass
+        # parents are selected according to their fitness
+        # better the chromosomes, more chance of selection
+        fitness_max = sum([i.value for i in fitness])
+        selection_prob = sum([i.value/fitness_max for i in fitness])
+        return 
 
     def rankBased(fitness):
         pass
 
-    def binaryTournament():
+    def binaryTournament(k, pop):
+        '''Lets say your generation has 1000 individuals. You can now create 1000 
+        new individuals for the next generation by having multiple tournaments of 
+        size 2 where you pick the better individual out of 2 randomly chosen as a parent 
+        for the next generation. Here k would be 2 and you'd run 2000 tournaments if 
+        you're having just 1 parent per individual'''
         pass
 
     def truncation(N, fitness):
@@ -24,7 +34,8 @@ class SelectionScheme:
         popFitness = dict(popFitness)
         return popFitness
         
-    def random():
+    def random(pop):
+        random
         pass
 
 class EvolAlgo:
