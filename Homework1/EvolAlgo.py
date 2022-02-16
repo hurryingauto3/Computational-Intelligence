@@ -1,10 +1,7 @@
 # Class of generic evolutionary algorithm
 from logging import error
-from random import random, randint, choice
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-
+import random as rd
+from numpy.random import shuffle
 
 class SelectionScheme:
     @staticmethod
@@ -87,8 +84,23 @@ class EvolAlgo:
     def sortFitness(self):
         return {k:v for k,v in sorted(self.popFitness.items(), key=lambda x: x[1])}
 
-    def compFitness(self, gene):
-        pass
+    def crossover(self, prnts):
+        offspring = 0
+        offspringList = []
+        while(offspring != self.numoffSpring):
+            p1 = rd.choice(list(prnts.keys()))
+            p2 = rd.choice(list(prnts.keys()))
+            if p1== p2:
+                continue
+            else:
+                child = rd.sample(list(prnts[p1]), self.knapsackItemNum//2) + rd.sample(list(prnts[p2]), self.knapsackItemNum - self.knapsackItemNum//2)
+                # child = self.pop[p1][0:self.knapsackItemNum//2] + self.pop[p2][self.knapsackItemNum//2::]
+                offspringList.append(child)
+                offspring += 1
+    
+    def mutation(self): 
+        for i in range(len(self.pop)):
+            if rd.random() < self.mutRate: np.shuffle(self.pop[i])
 
     def run(self):
         log = []

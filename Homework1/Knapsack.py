@@ -1,6 +1,6 @@
 from EvolAlgo import EvolAlgo
 import numpy as np
-from random import random, randint, choice
+import random as rd
 from numpy.random import shuffle
 class Knapsack(EvolAlgo):
 
@@ -21,26 +21,10 @@ class Knapsack(EvolAlgo):
         Sum_KV = sum([self.knapsackItems[i][1]*gene[i] for i in range(len(gene))])
         return Sum_KV*(1/Sum_KW)
 
-    def crossover(self, parents):
-        offspring = 0
-        offspringList = []
-        while(offspring != self.numoffSpring):
-            parent1 = choice(list(parents.keys()))
-            parent2 = choice(list(parents.keys()))
-
-            if parent1 == parent2:
-                continue
-            else:
-                child = self.pop[parent1][0:self.knapsackItemNum//2] + self.pop[parent2][self.knapsackItemNum//2::]
-                offspringList.append(child)
-                offspring += 1
-
+    
         self.pop.extend(offspringList)
 
-    def mutation(self): 
-        for i in range(len(self.pop)):
-            if random() < self.mutRate:
-                shuffle(self.pop[i])
+
 
 ks = Knapsack("f2_l-d_kp_20_878", numGen = 10, selScheme="tr")
 ks.run()
