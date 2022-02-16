@@ -16,13 +16,7 @@ class TSP(EvolAlgo):
     
     def compFitnessAll(self):
         return super().compFitnessAll()
-    
-    def selScheme(self):
-        return super().selScheme()
 
-    def crossover(self):
-        return super().crossover()
-    
     def mutation(self):
         return super().mutation()
 
