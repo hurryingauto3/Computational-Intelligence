@@ -1,7 +1,7 @@
 # Class of generic evolutionary algorithm
 from logging import error
 import random as rd
-from numpy.random import shuffle
+import numpy as np
 
 class SelectionScheme:
     @staticmethod
@@ -93,14 +93,14 @@ class EvolAlgo:
             if p1== p2:
                 continue
             else:
-                child = rd.sample(list(prnts[p1]), self.knapsackItemNum//2) + rd.sample(list(prnts[p2]), self.knapsackItemNum - self.knapsackItemNum//2)
-                # child = self.pop[p1][0:self.knapsackItemNum//2] + self.pop[p2][self.knapsackItemNum//2::]
+                # child = rd.sample(list(prnts[p1]), self.knapsackItemNum//2) + rd.sample(list(prnts[p2]), self.knapsackItemNum - self.knapsackItemNum//2)
+                child = self.pop[p1][0:self.knapsackItemNum//2] + self.pop[p2][self.knapsackItemNum//2::]
                 offspringList.append(child)
                 offspring += 1
     
     def mutation(self): 
         for i in range(len(self.pop)):
-            if rd.random() < self.mutRate: np.shuffle(self.pop[i])
+            if rd.random() < self.mutRate: np.random.shuffle(self.pop[i])
 
     def run(self):
         log = []

@@ -10,19 +10,15 @@ class TSP(EvolAlgo):
 
         print(len(self.cities))
     def popInit(self):
-        for i in range(len(self.pop)):
-            self.pop.append(shuffle(list(range(len(self.cities)))))
-        print(self.pop)
-    
-    def compFitnessAll(self):
-        return super().compFitnessAll()
+        for i in range(self.popSize): 
+            self.pop.append(list(range(len(self.cities))))
+            shuffle(self.pop[i])
+            
+    # def compFitness(self, gene):
+        
+        
 
-    def mutation(self):
-        return super().mutation()
 
-    # edit this function
-    def compFitness(self):
-        return super().compFitness()
 
 
 ts = TSP("tsp-ds.tsp", numGen = 10, selScheme="tr")

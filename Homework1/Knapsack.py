@@ -19,7 +19,7 @@ class Knapsack(EvolAlgo):
         if Sum_KW > self.knapsackCapacity:
             return 0
         Sum_KV = sum([self.knapsackItems[i][1]*gene[i] for i in range(len(gene))])
-        return Sum_KV*(1/Sum_KW)
+        return (Sum_KV*(1/Sum_KW))*(1/np.sqrt(Sum_KV*(1/Sum_KW)))
 
     
         self.pop.extend(offspringList)
