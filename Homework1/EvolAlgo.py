@@ -14,12 +14,14 @@ class SelectionScheme:
         return 
 
     def rankBased(N, fitness):
-        popFitness = [(k,v) for k,v in fitness.items()]
-        popFitness = popFitness[0:N]
-        # 
-        pass
+        fitnessSum = sum(fitness.values())
+        fitnessProb = [i/fitnessSum for i in fitness.values()]
+        # fitnessKeys = list()
+        # for i in range(N):
+        #     if fitnessProb[i] > rd.random():
+        return dict([(i, fitness[i]) for i in rd.choices(list(fitness.keys()), weights = fitnessProb, k = N)])
 
-    def binaryTournament(k, pop):
+    def binaryTournament(k, pop):   
         '''Lets say your generation has 1000 individuals. You can now create 1000 
         new individuals for the next generation by having multiple tournaments of 
         size 2 where you pick the better individual out of 2 randomly chosen as a parent 
@@ -120,6 +122,7 @@ class EvolAlgo:
             self.popInit()
             for j in range(self.numGen):
                 self.compFitnessAll()
+                # self.schemeSel()
                 self.crossover(self.schemeSel())
                 self.mutation()
                 self.compFitnessAll()
