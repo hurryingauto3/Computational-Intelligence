@@ -36,7 +36,8 @@ class SelectionScheme:
         return popFitness
         
     def random(N, fitness):
-        return rd.choices(fitness.value, k = N)
+
+         return dict([(i, fitness[i]) for i in rd.choices(list(fitness.keys()), k = N)])
 
 class EvolAlgo:
     @staticmethod
@@ -83,7 +84,7 @@ class EvolAlgo:
         elif self.selScheme == "tr":
             return SelectionScheme.truncation(N, self.sortFitness())
         elif self.selScheme == "rd":
-            return SelectionScheme.random()
+            return SelectionScheme.random(N, self.sortFitness())
         else:
             error("Invalid selection scheme")
         pass
