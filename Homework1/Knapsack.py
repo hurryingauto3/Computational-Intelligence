@@ -26,5 +26,5 @@ class Knapsack(EvolAlgo):
 
 
 
-ks = Knapsack("f2_l-d_kp_20_878", numGen = 10, selScheme="rd")
+ks = Knapsack("f2_l-d_kp_20_878", numGen = 10, selScheme="fp")
 ks.run()
