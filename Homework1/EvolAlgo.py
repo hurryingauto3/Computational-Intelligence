@@ -13,7 +13,10 @@ class SelectionScheme:
         selection_prob = sum([i.value/fitness_max for i in fitness])
         return 
 
-    def rankBased(fitness):
+    def rankBased(N, fitness):
+        popFitness = [(k,v) for k,v in fitness.items()]
+        popFitness = popFitness[0:N]
+        # 
         pass
 
     def binaryTournament(k, pop):
@@ -72,7 +75,7 @@ class EvolAlgo:
         if self.selScheme == "fp":
             return SelectionScheme.fitnessProp(self.compFitness())
         elif self.selScheme == "rb":
-            return SelectionScheme.rankBased()
+            return SelectionScheme.rankBased(N, self.sortFitness())
         elif self.selScheme == "bt":
             return SelectionScheme.binaryTournament()
         elif self.selScheme == "tr":
