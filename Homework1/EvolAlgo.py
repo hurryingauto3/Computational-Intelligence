@@ -14,12 +14,25 @@ class SelectionScheme:
     def rankBased(N, fitness):
       pass
 
-    def binaryTournament(k, pop):   
+    def binaryTournament(N, fitness):   
         '''Lets say your generation has 1000 individuals. You can now create 1000 
         new individuals for the next generation by having multiple tournaments of 
         size 2 where you pick the better individual out of 2 randomly chosen as a parent 
         for the next generation. Here k would be 2 and you'd run 2000 tournaments if 
         you're having just 1 parent per individual'''
+        bestFitness = []
+        while(len(bestFitness) < N):
+            c1 = rd.choice(list(fitness.keys()))
+            c2 = rd.choice(list(fitness.keys()))
+            if fitness[c1] > fitness[c2]:
+                if c1 in bestFitness:
+                    continue
+                bestFitness.append(c1)
+            else:
+                if c2 in bestFitness:
+                    continue
+        return dict([(i, fitness[i]) for i in bestFitness])
+
 
         pass
 
@@ -74,7 +87,7 @@ class EvolAlgo:
         elif self.selScheme == "rb":
             return SelectionScheme.rankBased(N, self.sortFitness())
         elif self.selScheme == "bt":
-            return SelectionScheme.binaryTournament()
+            return SelectionScheme.binaryTournament(N, self.sortFitness())
         elif self.selScheme == "tr":
             return SelectionScheme.truncation(N, self.sortFitness())
         elif self.selScheme == "rd":
