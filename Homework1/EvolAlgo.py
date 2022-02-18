@@ -1,11 +1,41 @@
 # Class of generic evolutionary algorithm
+from audioop import avg
+import imp
 from logging import error
 import random as rd
 import numpy as np
+import matplotlib.pyplot as plt
 
-class SelectionScheme:
+
+
+
+
+
+class EvolAlgo:
     @staticmethod
+    def __init__(self, fileName, popSize = 100, numoffSpring = 10, numGen = 100, mutRate = 0.5, numIter = 100, selScheme = "fp", survivalSel = "fp"):
 
+        self.fileData = self.readFile(fileName)
+        self.selScheme = selScheme
+        self.survivalSel = survivalSel
+        self.popSize = popSize
+        self.numoffSpring = numoffSpring
+        self.numGen = numGen
+        self.mutRate = mutRate
+        self.numIter = numIter
+        self.popFitness = {}
+        self.bestFitnesses = []
+        self.avgFitnesses = []
+        self.pop = []
+        self.parents = []
+
+    def readFile(self, fileName):
+
+        f = open(fileName, "r")
+        lines = f.readlines()
+        f.close()
+        return lines
+    
     def fitnessProp(N, fitness):
         fitnessSum = sum(fitness.values())
         fitnessProb = [i/fitnessSum for i in fitness.values()]
@@ -33,65 +63,46 @@ class SelectionScheme:
                     continue
         return dict([(i, fitness[i]) for i in bestFitness])
 
-    def truncation(N, fitness):
-        popFitness = [(k,v) for k,v in fitness.items()]
-        popFitness = popFitness[0:N]
-        popFitness = dict(popFitness)
-        return popFitness
-        
-    def random(N, fitness):
 
+    def truncation(self, N, kill):
+        popFitness = [(k,v) for k,v in self.sortFitness().items()]
+        print(popFitness)
+        # [self.pop.pop(i[0]) for i in popFitness[N:]]
+        if kill:
+            self.popFitness = dict(popFitness[:N])
+        else:
+            self.parents = dict(popFitness[:N])
+
+    def random(N, fitness):
          return dict([(i, fitness[i]) for i in rd.choices(list(fitness.keys()), k = N)])
 
-class EvolAlgo:
-    @staticmethod
-    def __init__(self, fileName, popSize = 100, numoffSpring = 10, numGen = 100, mutRate = 0.5, numIter = 100, selScheme = "fp", survivalSel = "fp"):
-
-        self.fileData = self.readFile(fileName)
-        self.selScheme = selScheme
-        self.survivalSel = survivalSel
-        self.popSize = popSize
-        self.numoffSpring = numoffSpring
-        self.numGen = numGen
-        self.mutRate = mutRate
-        self.numIter = numIter
-        self.popFitness = {}
-        self.pop = []
-
-    def readFile(self, fileName):
-
-        f = open(fileName, "r")
-        lines = f.readlines()
-        f.close()
-        return lines
-    
     def schemeSel(self, kill=False):
         if kill:
             N = self.popSize
             if self.survivalSel == "fp":
-                return SelectionScheme.fitnessProp(N, self.popFitness)
+                self.fitnessProp(N, self.popFitness)
             elif self.survivalSel == "rb":
-                return SelectionScheme.rankBased(N, self.sortFitness())
+                self.rankBased(N, self.sortFitness())
             elif self.survivalSel == "bt":
-                return SelectionScheme.binaryTournament(N, self.sortFitness())
+                self.binaryTournament(N, self.sortFitness())
             elif self.survivalSel == "tr":
-                return SelectionScheme.truncation(N, self.sortFitness())
+                self.truncation(N, kill)
             elif self.survivalSel == "rd":
-                return SelectionScheme.random(N, self.sortFitness())
+                self.random(N, self.sortFitness())
             else:
                 error("Invalid selection scheme")
         else:
             N = self.numoffSpring*2
             if self.selScheme == "fp":
-                return SelectionScheme.fitnessProp(N, self.popFitness)
+                self.fitnessProp(N, self.popFitness)
             elif self.selScheme == "rb":
-                return SelectionScheme.rankBased(N, self.sortFitness())
+                self.rankBased(N, self.sortFitness())
             elif self.selScheme == "bt":
-                return SelectionScheme.binaryTournament(N, self.sortFitness())
+                self.binaryTournament(N, self.sortFitness())
             elif self.selScheme == "tr":
-                return SelectionScheme.truncation(N, self.sortFitness())
+                self.truncation(N, kill)
             elif self.selScheme == "rd":
-                return SelectionScheme.random(N, self.sortFitness())
+                self.random(N, self.sortFitness())
             else:
                 error("Invalid selection scheme")
 
@@ -103,26 +114,46 @@ class EvolAlgo:
     def avgFitness(self):
         return sum(self.popFitness.values())/self.popSize
     def sortFitness(self):
-        return {k:v for k,v in sorted(self.popFitness.items(), key=lambda x: x[1])}
-
-    def mutation(self): 
-        for i in range(len(self.pop)):
-            if rd.random() < self.mutRate: np.random.shuffle(self.pop[i])
+        return {k:v for k,v in sorted(self.popFitness.items(), reverse = True, key=lambda x: x[1])}
+    
+    def mutation(self, offspringList): 
+        for i in range(len(offspringList)):
+            if rd.random() < self.mutRate: np.random.shuffle(offspringList[i])
 
     def run(self):
-        log = []
         
         for j in range(self.numGen):
             self.popInit()
+            bestFitness = 0
+            avgFitness = 0
             for i in range(self.numIter):
+                
+                
                 self.compFitnessAll()
-                self.crossover(self.schemeSel())
-                self.mutation()
+                self.schemeSel()
+                self.crossover()
+                print(len(self.pop))   
+                print("Parents+offspring", self.popFitness)
                 self.compFitnessAll()   
                 self.schemeSel(kill=True)
-                log.append("Iteration: " + str(i+1) + ", " + "Generation: " + str(j+1) + ", " + "Best Fitness: " 
-                + str(self.bestFitness()) + ", " + "Average Fitness: " + str(self.avgFitness()) + "\n")
+                print(len(self.pop))
+                print("Survivors", self.popFitness, "\n")
 
-        f = open("log.txt", "w")
-        f.writelines(log)
-        f.close()
+                bestFitness += self.bestFitness()
+                avgFitness += self.avgFitness()
+                # log.append("Iteration: " + str(i+1) + ", " + "Generation: " + str(j+1) + ", " + "Best Fitness: " 
+                # + str(self.bestFitness()) + ", " + "Average Fitness: " + str(self.avgFitness()) + "\n")
+
+            self.bestFitnesses.append(bestFitness/self.numIter)
+            self.avgFitnesses.append(avgFitness/self.numIter)
+
+    def plot(self):
+        plt.plot(self.bestFitnesses)
+        plt.plot(self.avgFitnesses)
+        plt.xlabel("Generation")
+        plt.ylabel("Fitness")
+        plt.legend(["Average Best Fitness over " + str(self.numIter), "Average Fitness over " + str(self.numIter)])
+        plt.savefig("plot.png")
+        # f = open("log.txt", "w")
+        # f.writelines(log)
+        # f.close()

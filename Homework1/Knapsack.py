@@ -14,19 +14,20 @@ class Knapsack(EvolAlgo):
         
     def popInit(self): self.pop = [np.random.randint(2, size = self.knapsackItemNum) for i in range(self.popSize)]
 
-    def crossover(self, prnts):
+    def crossover(self):
         offspringList = []
         while(len(offspringList) != self.numoffSpring):
-            p1 = rd.choice(list(prnts.keys()))
-            p2 = rd.choice(list(prnts.keys()))
+            p1 = rd.choice(list(self.parents.keys()))
+            p2 = rd.choice(list(self.parents.keys()))
             if p1== p2:
                 continue
             else:
-                randIndex1 = rd.randint(0, self.knapsackItemNum-1)
-                randIndex2 = rd.randint(0, self.knapsackItemNum-1)
-                offspringList.append([rd.choice([self.pop[p1][randIndex1], self.pop[p2][randIndex2]]) for i in range(self.knapsackItemNum)])
+                offspringList.append(self.pop[p1][0:self.knapsackItemNum//2] + self.pop[p2][self.knapsackItemNum//2:])
+        #         randIndex1 = rd.randint(0, self.knapsackItemNum-1)
+        #         randIndex2 = rd.randint(0, self.knapsackItemNum-1)
+        #         offspringList.append([rd.choice([self.pop[p1][randIndex1], self.pop[p2][randIndex2]]) for i in range(self.knapsackItemNum)])
+        self.mutation(offspringList)
         self.pop.extend(offspringList)
-
         
     def compFitness(self, gene):
         Sum_KW = sum([self.knapsackItems[i][0]*gene[i] for i in range(len(gene))])
@@ -34,10 +35,11 @@ class Knapsack(EvolAlgo):
             return 0
         Sum_KV = sum([self.knapsackItems[i][1]*gene[i] for i in range(len(gene))])
         #Needs to maxiumum
-        return (Sum_KV*(1/Sum_KW))
+        return Sum_KV
     
 
 
 
-ks = Knapsack("f2_l-d_kp_20_878", numIter = 40, mutRate = 0.4, selScheme="tr", survivalSel="tr")
+ks = Knapsack("f2_l-d_kp_20_878", numGen = 100, numIter = 40, mutRate = 0.4, selScheme="tr", survivalSel="tr")
 ks.run()
+ks.plot()
