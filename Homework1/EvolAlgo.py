@@ -33,9 +33,6 @@ class SelectionScheme:
                     continue
         return dict([(i, fitness[i]) for i in bestFitness])
 
-
-        pass
-
     def truncation(N, fitness):
         popFitness = [(k,v) for k,v in fitness.items()]
         popFitness = popFitness[0:N]
@@ -48,10 +45,11 @@ class SelectionScheme:
 
 class EvolAlgo:
     @staticmethod
-    def __init__(self, fileName, popSize = 100, numoffSpring = 10, numGen = 100, mutRate = 0.5, numIter = 100, selScheme = "fp"):
+    def __init__(self, fileName, popSize = 100, numoffSpring = 10, numGen = 100, mutRate = 0.5, numIter = 100, selScheme = "fp", survivalSel = "fp"):
 
         self.fileData = self.readFile(fileName)
         self.selScheme = selScheme
+        self.survivalSel = survivalSel
         self.popSize = popSize
         self.numoffSpring = numoffSpring
         self.numGen = numGen
@@ -67,34 +65,35 @@ class EvolAlgo:
         f.close()
         return lines
     
-    def crossover(self):
-        pass
-
-    def mutation(self):
-        pass
-
-    def popInit(self):
-        pass
-   
     def schemeSel(self, kill=False):
         if kill:
             N = self.popSize
+            if self.survivalSel == "fp":
+                return SelectionScheme.fitnessProp(N, self.popFitness)
+            elif self.survivalSel == "rb":
+                return SelectionScheme.rankBased(N, self.sortFitness())
+            elif self.survivalSel == "bt":
+                return SelectionScheme.binaryTournament(N, self.sortFitness())
+            elif self.survivalSel == "tr":
+                return SelectionScheme.truncation(N, self.sortFitness())
+            elif self.survivalSel == "rd":
+                return SelectionScheme.random(N, self.sortFitness())
+            else:
+                error("Invalid selection scheme")
         else:
             N = self.numoffSpring*2
-
-        if self.selScheme == "fp":
-            return SelectionScheme.fitnessProp(N, self.popFitness)
-        elif self.selScheme == "rb":
-            return SelectionScheme.rankBased(N, self.sortFitness())
-        elif self.selScheme == "bt":
-            return SelectionScheme.binaryTournament(N, self.sortFitness())
-        elif self.selScheme == "tr":
-            return SelectionScheme.truncation(N, self.sortFitness())
-        elif self.selScheme == "rd":
-            return SelectionScheme.random(N, self.sortFitness())
-        else:
-            error("Invalid selection scheme")
-        pass
+            if self.selScheme == "fp":
+                return SelectionScheme.fitnessProp(N, self.popFitness)
+            elif self.selScheme == "rb":
+                return SelectionScheme.rankBased(N, self.sortFitness())
+            elif self.selScheme == "bt":
+                return SelectionScheme.binaryTournament(N, self.sortFitness())
+            elif self.selScheme == "tr":
+                return SelectionScheme.truncation(N, self.sortFitness())
+            elif self.selScheme == "rd":
+                return SelectionScheme.random(N, self.sortFitness())
+            else:
+                error("Invalid selection scheme")
 
     def compFitnessAll(self):
         for i in range(self.popSize):
@@ -106,38 +105,24 @@ class EvolAlgo:
     def sortFitness(self):
         return {k:v for k,v in sorted(self.popFitness.items(), key=lambda x: x[1])}
 
-    def crossover(self, prnts):
-        offspring = 0
-        offspringList = []
-        while(offspring != self.numoffSpring):
-            p1 = rd.choice(list(prnts.keys()))
-            p2 = rd.choice(list(prnts.keys()))
-            if p1== p2:
-                continue
-            else:
-                # child = rd.sample(list(prnts[p1]), self.knapsackItemNum//2) + rd.sample(list(prnts[p2]), self.knapsackItemNum - self.knapsackItemNum//2)
-                child = self.pop[p1][0:self.knapsackItemNum//2] + self.pop[p2][self.knapsackItemNum//2::]
-                offspringList.append(child)
-                offspring += 1
-    
     def mutation(self): 
         for i in range(len(self.pop)):
             if rd.random() < self.mutRate: np.random.shuffle(self.pop[i])
 
     def run(self):
         log = []
-        for i in range(self.numIter):
+        
+        for j in range(self.numGen):
             self.popInit()
-            for j in range(self.numGen):
+            for i in range(self.numIter):
                 self.compFitnessAll()
-                # self.schemeSel()
                 self.crossover(self.schemeSel())
                 self.mutation()
-                self.compFitnessAll()
+                self.compFitnessAll()   
                 self.schemeSel(kill=True)
                 log.append("Iteration: " + str(i+1) + ", " + "Generation: " + str(j+1) + ", " + "Best Fitness: " 
                 + str(self.bestFitness()) + ", " + "Average Fitness: " + str(self.avgFitness()) + "\n")
-        
+
         f = open("log.txt", "w")
         f.writelines(log)
         f.close()
