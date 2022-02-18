@@ -1,4 +1,5 @@
 from EvolAlgo import EvolAlgo
+import random as rd
 
 class graphCol(EvolAlgo):
     
@@ -8,12 +9,16 @@ class graphCol(EvolAlgo):
         self.nodes = [x(self.fileData[i].strip("\n").split(" ")) for i in range(1, len(self.fileData))]
         print(self.nodes)       
 
-    def popInit(self):
-        return super().popInit()
-
+    def popInit(self): self.popInit = [[rd.randint(0, len(self.nodes)-1) for i in range(len(self.nodes))] for j in range(self.popSize)]
     # edit this function
-    def compFitness(self):
-        return super().compFitness()
+    def compFitness(self, gene):
 
+        uniqueColors = len(set(gene))
+        #edge coloring violation
+        edgeColoringViolation = 0
+        for i in range(len(gene)-1):
+            if gene[i] == gene[i+1]:
+                edgeColoringViolation += 1
+        return 1/(uniqueColors+edgeColoringViolation)
 
 g = graphCol("gc-ds.txt", numGen = 10, selScheme="tr")  
