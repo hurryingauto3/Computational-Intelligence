@@ -1,6 +1,5 @@
 # Class of generic evolutionary algorithm
 from logging import error
-from nis import match
 import random as rd
 import numpy as np
 import matplotlib.pyplot as plt
