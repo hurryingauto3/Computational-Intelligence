@@ -16,3 +16,6 @@ class TSP(evolAlgo):
         tourLen = 0
         for i in range(len(gene)-1):
             tourLen += np.sqrt((gene[i][0]-gene[i+1][0])**2 + (gene[i][1]-gene[i+1][1])**2)
+        return 1/tourLen
+
+

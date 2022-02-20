@@ -22,3 +22,26 @@ class graphcoloring(evolAlgo):
                 edgeColoringViolation += 1
         return 1/(nonuniqueColors+edgeColoringViolation)
 
+    def crossover(self):
+        offSpring = []
+
+        while(len(offSpring) < self.nOffSpring):
+            p1 = rd.choice(self.parents)
+            p2 = rd.choice(self.parents)
+            if p1 != p2:
+                p1Genes = list(p1.genes[0:int(len(p1.genes)/2)])
+                p2Genes = list(p2.genes[int(len(p2.genes)/2):len(p2.genes)])
+                chromosome =  p1Genes + p2Genes
+                offSpring.append(Chromosome(0, chromosome, self.compFitness(chromosome)))
+            else:
+                continue
+        self.mutation(offSpring)
+        for i in range(len(offSpring)):
+            offSpring[i].id = self.nPop + i
+        self.population.extend(offSpring)
+    
+gs = graphcoloring("gc-ds.txt", 100, 20, 100, 0.1, 40, "tr", "tr")
+gs.run()
+gs.plot()
+
+

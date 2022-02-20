@@ -17,8 +17,8 @@ class evolAlgo:
     
     def __init__(self, fileName, nPop, nOffSpring, nGen, rMutation, nIter, pSel, sSel):
 
-        self.fileData = self.readfile(fileName)
-        #Paramters for the algorithm
+        self.fileData = self.readFile(fileName)
+        #Initialize parameters
         self.nPop = nPop
         self.nOffSpring = nOffSpring
         self.nGen = nGen
@@ -26,13 +26,13 @@ class evolAlgo:
         self.nIter = nIter
         self.pSel = pSel
         self.sSel = sSel
+        #Initialize population
+        self.population = []
+        self.parents = []
+        self.survivors = []
         #Statistics
         self.bestFitnesses = []
         self.avgFitnesses = []
-        #Initialize population
-        self.population
-        self.parents
-        self.survivors
 
     def readFile(self, fileName):
         f = open(fileName, "r")
@@ -112,7 +112,7 @@ class evolAlgo:
         for i in range(self.nPop):
             self.population[i].fitness = self.compFitness(self.population[i].genes)
     def sortFitness(self):
-        return sorted(self.population, key=lambda x: x.fitness)
+        return sorted(self.population, key=lambda x: x.fitness, reverse=True)
     def bestFitness(self):
         return max([i.fitness for i in self.population])
 
@@ -124,8 +124,8 @@ class evolAlgo:
         plt.plot(self.avgFitnesses)
         plt.xlabel("Generation")
         plt.ylabel("Fitness")
-        plt.legend(["Average Best Fitness over " + str(self.numIter) + " iterations", 
-                    "Average Fitness over " + str(self.numIter) + " iterations"])
+        plt.legend(["Average Best Fitness over " + str(self.nIter) + " iterations", 
+                    "Average Fitness over " + str(self.nIter) + " iterations"])
         plt.savefig("plot.png")
 
     def run(self):
