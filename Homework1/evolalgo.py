@@ -100,28 +100,49 @@ class evolAlgo:
     def fitnessProp(self, N):
         fitnessSum = sum([i.fitness for i in self.population])
         fitnessProb = [i.fitness/fitnessSum for i in self.population]
+        if self.minimize:
+            fitnessProb = [1 - i for i in fitnessProb]
         return list(np.random.choice(self.population, N, p=fitnessProb, replace=False))
 
     def rankBased(self, N):
-        pass
+        
+        sortedFitness = self.sortFitness() 
+        fitnessProb = [i/self.nPop for i in range(len(sortedFitness))]
+        fitnessProb = [i/sum(fitnessProb) for i in fitnessProb]
+        if self.minimize:
+            fitnessProb = fitnessProb[::-1]
+        return list(np.random.choice(sortedFitness, N, p=fitnessProb, replace=False))
 
     def binaryTournament(self, N):
         finalPopulation = []
         while(len(finalPopulation) < N):
             c1 = rd.choice(self.population)
             c2 = rd.choice(self.population)
-            if c1.fitness > c2.fitness:
+            
+            if c1.fitness > c2.fitness and self.minimize == False:
                 if c1 in finalPopulation:
                     continue
                 finalPopulation.append(c1)
-            else:
+            elif c1.fitness < c2.fitness and self.minimize == False:
                 if c2 in finalPopulation:
                     continue
                 finalPopulation.append(c2)
+            elif c1.fitness > c2.fitness and self.minimize == True:
+                if c2 in finalPopulation:
+                    continue
+                finalPopulation.append(c2)
+            elif c1.fitness < c2.fitness and self.minimize == True:
+                if c1 in finalPopulation:
+                    continue
+                finalPopulation.append(c1)
+
         return finalPopulation
 
-    def truncation(self, N): return self.sortFitness()[:N]
-
+    def truncation(self, N): 
+        if self.minimize:
+            return self.sortFitness()[:N]
+        else:
+            return self.sortFitness()[-N:]
     def random(self, N): return list(
         np.random.choice(self.population, N, replace=False))
 
@@ -130,13 +151,13 @@ class evolAlgo:
             self.population[i].fitness = self.compFitness(
                 self.population[i].genes)
 
-    def sortFitness(self): 
-        if self.minimize:
-            return sorted(self.population, key=lambda x: x.fitness)
-        else:
-            return sorted(self.population, key=lambda x: x.fitness, reverse=True)
+    def sortFitness(self): return sorted(self.population, key=lambda x: x.fitness)
 
-    def bestFitness(self): return max([i.fitness for i in self.population])
+    def bestFitness(self): 
+        if self.minimize:
+            return min([i.fitness for i in self.population])
+        else:
+            return max([i.fitness for i in self.population])
 
     def avgFitness(self): return sum([i.fitness for i in self.population])/self.nPop
 

@@ -28,6 +28,6 @@ class graphcoloring(evolAlgo):
         return edgeColoringViolation
 
 
-gs = graphcoloring("gc-ds.txt", 30, 10, 100, 0.5, 40, "tr", "tr", True)
+gs = graphcoloring("gc-ds.txt", 30, 10, 100, 0.2, 40, "tr", "rb", True)
 gs.run()
 gs.plot("Total Edge Coloring Violation", "GraphCol")

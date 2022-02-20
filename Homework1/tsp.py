@@ -6,9 +6,9 @@ class TSP(evolAlgo):
         evolAlgo.__init__(self, fileName, nPop, nOffSpring,
                           nGen, rMutation, nIter, pSel, sSel, minimize)
 
-        def x(i): return (int(i[0]), int(i[1]))
+        def x(i): return (float(i[0]), float(i[1]))
         self.cities = [x(self.fileData[i].strip("\n").split(" "))
-                       for i in range(len(self.fileData))]
+                       for i in range(7, len(self.fileData)-1)]
 
     def popInit(self):
         for i in range(self.nPop):
@@ -30,19 +30,12 @@ class TSP(evolAlgo):
             p1 = rd.choice(self.parents)
             p2 = rd.choice(self.parents)
             if p1 != p2:
-                p1Genes = list(p1.genes[0:int(len(p1.genes)//2)])
-                p2Genes = list(p2.genes[int(len(p2.genes)//2):len(p2.genes)])
-                p3Genes = list(p2.genes[0:int(len(p2.genes)//2)])
-                p4Genes = list(p1.genes[int(len(p1.genes)//2):len(p1.genes)])
-                for i in range(len(p1Genes)):
-                    if p1Genes[i] in p2Genes:
-                        p2Genes.replace(p1Genes[i], p2Genes[i])
-                    if p2Genes[i] in p1Genes:
-                        p1Genes.replace(p2Genes[i], p1Genes[i])
-                    if p3Genes[i] in p4Genes:
-                        p4Genes.replace(p3Genes[i], p4Genes[i])
-                    if p4Genes[i] in p3Genes:
-                        p3Genes.replace(p4Genes[i], p3Genes[i])
+                
+                p1Genes = list(p1.genes[0:int(rd.random()*len(p1.genes))])
+                p2Genes = [i for i in p2.genes if i not in p1Genes]
+                p3Genes = list(p2.genes[0:int(rd.random()*len(p2.genes))])
+                p4Genes = [i for i in p1.genes if i not in p3Genes]           
+
                 chromosome = p1Genes + p2Genes
                 offSpring.append(Chromosome(0, chromosome, self.compFitness(chromosome)))
                 chromosome = p3Genes + p4Genes
@@ -55,6 +48,6 @@ class TSP(evolAlgo):
         self.population.extend(offSpring)
 
 
-tsp = TSP("tsp-ds.tsp", 30, 10, 100, 0.5, 40, "tr", "tr", minimize=True)
+tsp = TSP("tsp-ds.tsp", 30, 10, 100, 0.3, 20, "tr", "rb", minimize=True)
 tsp.run()
 tsp.plot("Tour Length", "TSP")
