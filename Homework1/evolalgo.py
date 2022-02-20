@@ -98,9 +98,11 @@ class evolAlgo:
 
     def fitnessProp(self, N):
         fitnessSum = sum([i.fitness for i in self.population])
-        fitnessProb = [i.fitness/fitnessSum for i in self.population]
         if self.minimize:
-            fitnessProb = [1 - i for i in fitnessProb]
+            fitnessProb = [1 - ((fitnessSum-i.fitness)/fitnessSum) for i in self.population]
+        else:
+            fitnessProb = [i.fitness/fitnessSum for i in self.population]
+
         return list(np.random.choice(self.population, N, p=fitnessProb, replace=False))
 
     def rankBased(self, N):
