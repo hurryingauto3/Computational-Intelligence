@@ -116,28 +116,30 @@ class evolAlgo:
 
     def bestFitness(self): return max([i.fitness for i in self.population])
 
-    def avgFitness(self): return sum(
-        [i.fitness for i in self.population])/self.nPop
+    def avgFitness(self): return sum([i.fitness for i in self.population])/self.nPop
 
-    def plot(self):
+    def plot(self, fitness, name):
         plt.plot(self.bestFitnesses)
         plt.plot(self.avgFitnesses)
         plt.xlabel("Generation")
-        plt.ylabel("Fitness")
+        plt.ylabel("Fitness" + " (" +fitness + ")")
         plt.legend(["Average Best Fitness over " + str(self.nIter) + " iterations",
                     "Average Fitness over " + str(self.nIter) + " iterations"])
-        plt.savefig("plot.png")
+        plt.savefig(name+".png")
 
     def run(self):
-        for i in range(self.nIter):
+        for i in range(self.nGen):
             self.popInit()
             bestFitness = 0
             avgFitness = 0
-            for j in range(self.nGen):
+            for j in range(self.nIter):
+                print("Old Gen", [i.fitness for i in self.population])
                 self.parentSelection()
                 self.crossover()
+                print("w/Offspring", [i.fitness for i in self.population])
                 self.compFitnessAll()
                 self.survivalSelection()
+                print("Survivors", [i.fitness for i in self.survivors], '\n')
                 self.population = self.survivors
                 self.survivors = []
 

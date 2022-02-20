@@ -29,7 +29,7 @@ class knapsack(evolAlgo):
         Sum_KV = sum([self.knapsackItems[i][1]*chromosome[i]
                      for i in range(len(chromosome))])
         # Needs to maxiumum
-        return Sum_KV
+        return Sum_KV*(1/Sum_KW)
 
     def crossover(self):
         offSpring = []
@@ -51,9 +51,9 @@ class knapsack(evolAlgo):
         self.population.extend(offSpring)
 
 
-ks = knapsack("f2_l-d_kp_20_878", 100, 10, 100, 0.1, 100, "tr", "tr")
+ks = knapsack("f2_l-d_kp_20_878", 30, 10, 20, 0.4, 40, "tr", "tr")
 ks.run()
-ks.plot()
+ks.plot("Total Value/Total Weight","knapsack")
 # ks.popInit()
 # print(len(ks.population))
 # ks.parentSelection()

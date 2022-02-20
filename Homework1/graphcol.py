@@ -19,7 +19,7 @@ class graphcoloring(evolAlgo):
                 i, chromosome, self.compFitness(chromosome)))
 
     def compFitness(self, gene):
-        nonuniqueColors = 100 - len(set(gene))
+        nonuniqueColors = len(self.nodes) - len(set(gene))
         # edge coloring violation
         edgeColoringViolation = 0
         for i in range(len(gene)-1):
