@@ -1,11 +1,12 @@
 # Class of generic evolutionary algorithm
 from logging import error
+from nis import match
 import random as rd
 import numpy as np
 import matplotlib.pyplot as plt
 
-class Chromosome:
 
+class Chromosome:
     def __init__(self, id, genes, fitness) -> None:
         self.id = id
         self.genes = genes
@@ -14,11 +15,10 @@ class Chromosome:
 
 class evolAlgo:
     @staticmethod
-    
     def __init__(self, fileName, nPop, nOffSpring, nGen, rMutation, nIter, pSel, sSel):
 
         self.fileData = self.readFile(fileName)
-        #Initialize parameters
+        # Initialize parameters
         self.nPop = nPop
         self.nOffSpring = nOffSpring
         self.nGen = nGen
@@ -26,11 +26,11 @@ class evolAlgo:
         self.nIter = nIter
         self.pSel = pSel
         self.sSel = sSel
-        #Initialize population
+        # Initialize population
         self.population = []
         self.parents = []
         self.survivors = []
-        #Statistics
+        # Statistics
         self.bestFitnesses = []
         self.avgFitnesses = []
 
@@ -76,7 +76,7 @@ class evolAlgo:
         else:
             error("Invalid survival selection scheme")
 
-    #Selection schemes for parent and survivor selection
+    # Selection schemes for parent and survivor selection
 
     def fitnessProp(self, N):
         fitnessSum = sum([i.fitness for i in self.population])
@@ -101,30 +101,30 @@ class evolAlgo:
                 finalPopulation.append(c2)
         return finalPopulation
 
-    def truncation(self, N):
-        finalPopulation = self.sortFitness()
-        return finalPopulation[:N]
-    
-    def random(self, N):
-        return list(np.random.choice(self.population, N, replace=False))    
+    def truncation(self, N): return self.sortFitness()[:N]
+
+    def random(self, N): return list(
+        np.random.choice(self.population, N, replace=False))
 
     def compFitnessAll(self):
         for i in range(self.nPop):
-            self.population[i].fitness = self.compFitness(self.population[i].genes)
-    def sortFitness(self):
-        return sorted(self.population, key=lambda x: x.fitness, reverse=True)
-    def bestFitness(self):
-        return max([i.fitness for i in self.population])
+            self.population[i].fitness = self.compFitness(
+                self.population[i].genes)
 
-    def avgFitness(self):
-        return sum([i.fitness for i in self.population])/self.nPop
+    def sortFitness(self): return sorted(self.population,
+                                         key=lambda x: x.fitness, reverse=True)
+
+    def bestFitness(self): return max([i.fitness for i in self.population])
+
+    def avgFitness(self): return sum(
+        [i.fitness for i in self.population])/self.nPop
 
     def plot(self):
         plt.plot(self.bestFitnesses)
         plt.plot(self.avgFitnesses)
         plt.xlabel("Generation")
         plt.ylabel("Fitness")
-        plt.legend(["Average Best Fitness over " + str(self.nIter) + " iterations", 
+        plt.legend(["Average Best Fitness over " + str(self.nIter) + " iterations",
                     "Average Fitness over " + str(self.nIter) + " iterations"])
         plt.savefig("plot.png")
 
@@ -143,6 +143,6 @@ class evolAlgo:
 
                 bestFitness += self.bestFitness()
                 avgFitness += self.avgFitness()
-            
+
             self.bestFitnesses.append(bestFitness/self.nIter)
             self.avgFitnesses.append(avgFitness/self.nIter)
