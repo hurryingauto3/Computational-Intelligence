@@ -170,7 +170,7 @@ class evolAlgo:
         plt.legend(["Average Best Fitness over " + str(self.nIter) + " iterations",
                     "Average Fitness over " + str(self.nIter) + " iterations"])
         plt.savefig(name+".png")
-
+        plt.close()
     def run(self):
         for i in range(self.nGen):
             self.popInit()
