@@ -3,17 +3,20 @@ from audioop import avg
 import imp
 from logging import error
 import random as rd
+from re import T
 import numpy as np
 import matplotlib.pyplot as plt
 
-
-
-
-
-
+class Chromosome:
+    def __init__(self, genes, fitness) -> None:
+        self.genes = genes
+        self.fitness = fitness
+        self.parent = False
+        self.survivor = True
+        
 class EvolAlgo:
     @staticmethod
-    def __init__(self, fileName, popSize = 100, numoffSpring = 10, numGen = 100, mutRate = 0.5, numIter = 100, selScheme = "fp", survivalSel = "fp"):
+    def __init__(self, fileName, popSize = 30, numoffSpring = 10, numGen = 100, mutRate = 0.5, numIter = 100, selScheme = "fp", survivalSel = "fp"):
 
         self.fileData = self.readFile(fileName)
         self.selScheme = selScheme
@@ -23,14 +26,13 @@ class EvolAlgo:
         self.numGen = numGen
         self.mutRate = mutRate
         self.numIter = numIter
+        self.population = {}
+        self.parents = {}
         self.popFitness = {}
         self.bestFitnesses = []
         self.avgFitnesses = []
-        self.pop = []
-        self.parents = []
-
+      
     def readFile(self, fileName):
-
         f = open(fileName, "r")
         lines = f.readlines()
         f.close()
@@ -42,14 +44,9 @@ class EvolAlgo:
         return dict([(i, fitness[i]) for i in rd.choices(list(fitness.keys()), weights = fitnessProb, k = N)])
 
     def rankBased(N, fitness):
-      pass
+        pass
 
     def binaryTournament(N, fitness):   
-        '''Lets say your generation has 1000 individuals. You can now create 1000 
-        new individuals for the next generation by having multiple tournaments of 
-        size 2 where you pick the better individual out of 2 randomly chosen as a parent 
-        for the next generation. Here k would be 2 and you'd run 2000 tournaments if 
-        you're having just 1 parent per individual'''
         bestFitness = []
         while(len(bestFitness) < N):
             c1 = rd.choice(list(fitness.keys()))
@@ -65,13 +62,16 @@ class EvolAlgo:
 
 
     def truncation(self, N, kill):
-        popFitness = [(k,v) for k,v in self.sortFitness().items()]
-        print(popFitness)
-        # [self.pop.pop(i[0]) for i in popFitness[N:]]
+        popFitness = [i for i in self.popFitness.items()]
         if kill:
-            self.popFitness = dict(popFitness[:N])
+            print("All")
+            print("Survived", [i[1][0] for i in popFitness[:N]])
+            print("Killed", [i[1][0] for i in popFitness[N:]])
+            return dict(popFitness[0:N])
         else:
-            self.parents = dict(popFitness[:N])
+            print("Parents", [i[1][0] for i in popFitness[:N]])
+            print("NotP", [i[1][0] for i in popFitness[N:]])
+            return dict(popFitness[0:N])
 
     def random(N, fitness):
          return dict([(i, fitness[i]) for i in rd.choices(list(fitness.keys()), k = N)])
@@ -86,7 +86,7 @@ class EvolAlgo:
             elif self.survivalSel == "bt":
                 self.binaryTournament(N, self.sortFitness())
             elif self.survivalSel == "tr":
-                self.truncation(N, kill)
+                return self.truncation(N, kill)
             elif self.survivalSel == "rd":
                 self.random(N, self.sortFitness())
             else:
@@ -100,44 +100,52 @@ class EvolAlgo:
             elif self.selScheme == "bt":
                 self.binaryTournament(N, self.sortFitness())
             elif self.selScheme == "tr":
-                self.truncation(N, kill)
+                return self.truncation(N, kill)
             elif self.selScheme == "rd":
                 self.random(N, self.sortFitness())
             else:
                 error("Invalid selection scheme")
 
     def compFitnessAll(self):
-        for i in range(self.popSize):
-            self.popFitness[i] = self.compFitness(self.pop[i])
-    def bestFitness(self):
-        return max(self.popFitness.values())
-    def avgFitness(self):
-        return sum(self.popFitness.values())/self.popSize
-    def sortFitness(self):
-        return {k:v for k,v in sorted(self.popFitness.items(), reverse = True, key=lambda x: x[1])}
+        for i in self.popFitness.keys():
+            self.popFitness[i] = (self.compFitness(self.popFitness[i][1]), self.popFitness[i][1])
     
+    def bestFitness(self): return max([self.popFitness[i][0] for i in self.popFitness.keys()])
+    
+    def avgFitness(self): return sum([self.popFitness[i][0] for i in self.popFitness.keys()])/self.popSize
+    
+    def sortFitness(self): 
+        sortedFitness = sorted(self.popFitness.items(), key = lambda tup: tup[1][0], reverse=True)
+        tempPopFitness = {}
+        for i in sortedFitness:
+            tempPopFitness[i[0]] = i[1]
+        self.popFitness = tempPopFitness
+
+
     def mutation(self, offspringList): 
         for i in range(len(offspringList)):
             if rd.random() < self.mutRate: np.random.shuffle(offspringList[i])
+        return offspringList
 
     def run(self):
         
+        self.popInit()
         for j in range(self.numGen):
-            self.popInit()
+            #100 solutions
             bestFitness = 0
             avgFitness = 0
             for i in range(self.numIter):
+                self.sortFitness()
                 
-                
-                self.compFitnessAll()
-                self.schemeSel()
+                # print("Old gen", [self.popFitness[i][0]for i in self.popFitness.keys()])
+                self.parents = self.schemeSel()
                 self.crossover()
-                print(len(self.pop))   
-                print("Parents+offspring", self.popFitness)
-                self.compFitnessAll()   
-                self.schemeSel(kill=True)
-                print(len(self.pop))
-                print("Survivors", self.popFitness, "\n")
+                self.sortFitness()
+                # print("w/Offspring", [self.popFitness[i][0] for i in self.popFitness.keys()])
+                self.compFitnessAll()
+                self.sortFitness()
+                self.popFitness = self.schemeSel(kill=True)
+                # print("Survivors", [self.popFitness[i][0] for i in self.popFitness.keys()], "\n")
 
                 bestFitness += self.bestFitness()
                 avgFitness += self.avgFitness()
@@ -154,6 +162,3 @@ class EvolAlgo:
         plt.ylabel("Fitness")
         plt.legend(["Average Best Fitness over " + str(self.numIter), "Average Fitness over " + str(self.numIter)])
         plt.savefig("plot.png")
-        # f = open("log.txt", "w")
-        # f.writelines(log)
-        # f.close()

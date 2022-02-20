@@ -12,8 +12,12 @@ class Knapsack(EvolAlgo):
         self.knapsackCapacity = int(self.knapsackItems[0][1]) #knapsack capacity
         self.knapsackItems.pop(0)
         
-    def popInit(self): self.pop = [np.random.randint(2, size = self.knapsackItemNum) for i in range(self.popSize)]
-
+    ## Popfitness storing popoulation fitness and popoulation as dictionary of touples
+    def popInit(self): 
+        for i in range(self.popSize):
+            chromosome = np.random.randint(2, size = self.knapsackItemNum)
+            self.popFitness[i] = (self.compFitness(chromosome), chromosome)
+        
     def crossover(self):
         offspringList = []
         while(len(offspringList) != self.numoffSpring):
@@ -22,24 +26,30 @@ class Knapsack(EvolAlgo):
             if p1== p2:
                 continue
             else:
-                offspringList.append(self.pop[p1][0:self.knapsackItemNum//2] + self.pop[p2][self.knapsackItemNum//2:])
-        #         randIndex1 = rd.randint(0, self.knapsackItemNum-1)
-        #         randIndex2 = rd.randint(0, self.knapsackItemNum-1)
-        #         offspringList.append([rd.choice([self.pop[p1][randIndex1], self.pop[p2][randIndex2]]) for i in range(self.knapsackItemNum)])
-        self.mutation(offspringList)
-        self.pop.extend(offspringList)
+                childp1 = self.popFitness[p1][1][0:self.knapsackItemNum//2]
+                childp2 = self.popFitness[p1][1][self.knapsackItemNum//2:]
+                offspringList.append(list(childp1)+list(childp2))
         
-    def compFitness(self, gene):
-        Sum_KW = sum([self.knapsackItems[i][0]*gene[i] for i in range(len(gene))])
+        offspringList = self.mutation(offspringList)
+        
+        j = 0
+        for i in range(self.popSize, self.popSize+self.numoffSpring):
+            self.popFitness[i] = (self.compFitness(offspringList[j]), offspringList[j])
+            j+=1
+        
+
+
+    def compFitness(self, chrmsme):
+        Sum_KW = sum([self.knapsackItems[i][0]*chrmsme[i] for i in range(len(chrmsme))])
         if Sum_KW > self.knapsackCapacity or Sum_KW <= 0:
             return 0
-        Sum_KV = sum([self.knapsackItems[i][1]*gene[i] for i in range(len(gene))])
+        Sum_KV = sum([self.knapsackItems[i][1]*chrmsme[i] for i in range(len(chrmsme))])
         #Needs to maxiumum
         return Sum_KV
     
 
 
 
-ks = Knapsack("f2_l-d_kp_20_878", numGen = 100, numIter = 40, mutRate = 0.4, selScheme="tr", survivalSel="tr")
+ks = Knapsack("f2_l-d_kp_20_878", numGen = 10, numIter=1, mutRate = 0.4, selScheme="tr", survivalSel="tr")
 ks.run()
 ks.plot()

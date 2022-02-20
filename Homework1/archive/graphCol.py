@@ -9,7 +9,7 @@ class graphCol(EvolAlgo):
         self.edges = [x(self.fileData[i].strip("\n").split(" ")) for i in range(1, len(self.fileData))]
         self.nodes = list(set(i for j in self.edges for i in j))
     
-    def popInit(self): self.pop = [[rd.randint(0, len(self.nodes)-1) for i in range(len(self.edges))] for j in range(self.popSize)]
+    def popInit(self): self.pop = [ for j in range(self.popSize)]
     # edit this function
     def compFitness(self, gene):
 
@@ -34,6 +34,6 @@ class graphCol(EvolAlgo):
                 offspringList.append([rd.choice([self.pop[p1][randIndex1], self.pop[p2][randIndex2]]) for i in range(len(self.edges))])
         self.pop.extend(offspringList)
 
-gs = graphCol("gc-ds.txt", popSize = 130, numoffSpring=60,numIter = 20, mutRate = 0.4, selScheme="tr", survivalSel="tr")
+gs = graphCol("gc-ds.txt", popSize = 130, numoffSpring=60,numIter = 100, mutRate = 0.4, selScheme="tr", survivalSel="tr")
 gs.run()
 gs.plot()
