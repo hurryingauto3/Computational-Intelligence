@@ -5,17 +5,15 @@ import random as rd
 import numpy as np
 import matplotlib.pyplot as plt
 
-
 class Chromosome:
     def __init__(self, id, genes, fitness) -> None:
         self.id = id
         self.genes = genes
         self.fitness = fitness
 
-
 class evolAlgo:
     @staticmethod
-    def __init__(self, fileName, nPop, nOffSpring, nGen, rMutation, nIter, pSel, sSel):
+    def __init__(self, fileName, nPop, nOffSpring, nGen, rMutation, nIter, pSel, sSel, minimize):
 
         self.fileData = self.readFile(fileName)
         # Initialize parameters
@@ -26,6 +24,7 @@ class evolAlgo:
         self.nIter = nIter
         self.pSel = pSel
         self.sSel = sSel
+        self.minimize = minimize
         # Initialize population
         self.population = []
         self.parents = []
@@ -46,19 +45,39 @@ class evolAlgo:
                 np.random.shuffle(chromosomes[i].genes)
 
     def crossover(self):
-        pass
+        offSpring = []
+        while(len(offSpring) < self.nOffSpring):
+            p1 = rd.choice(self.parents)
+            p2 = rd.choice(self.parents)
+            if p1 != p2:
+                p1Genes = list(p1.genes[0:int(len(p1.genes)//2)])
+                p2Genes = list(p2.genes[int(len(p2.genes)//2):len(p2.genes)])
+                chromosome = p1Genes + p2Genes
+                offSpring.append(Chromosome(0, chromosome, self.compFitness(chromosome)))
+
+                p1Genes = list(p2.genes[0:int(len(p2.genes)//2)])
+                p2Genes = list(p1.genes[int(len(p1.genes)//2):len(p1.genes)])
+                chromosome = p1Genes + p2Genes
+                offSpring.append(Chromosome(0, chromosome, self.compFitness(chromosome)))
+
+            else:
+                continue
+        self.mutation(offSpring)
+        for i in range(len(offSpring)):
+            offSpring[i].id = self.nPop + i
+        self.population.extend(offSpring)
 
     def parentSelection(self):
         if self.pSel == "fp":
-            self.parents = self.fitnessProp(self.nOffSpring*2)
+            self.parents = self.fitnessProp(self.nOffSpring)
         elif self.pSel == "rb":
-            self.parents = self.rankBased(self.nOffSpring*2)
+            self.parents = self.rankBased(self.nOffSpring)
         elif self.pSel == "bt":
-            self.parents = self.binaryTournament(self.nOffSpring*2)
+            self.parents = self.binaryTournament(self.nOffSpring)
         elif self.pSel == "tr":
-            self.parents = self.truncation(self.nOffSpring*2)
+            self.parents = self.truncation(self.nOffSpring)
         elif self.pSel == "rd":
-            self.parents = self.random(self.nOffSpring*2)
+            self.parents = self.random(self.nOffSpring)
         else:
             error("Invalid parent selection scheme")
 
@@ -111,8 +130,11 @@ class evolAlgo:
             self.population[i].fitness = self.compFitness(
                 self.population[i].genes)
 
-    def sortFitness(self): return sorted(self.population,
-                                         key=lambda x: x.fitness, reverse=True)
+    def sortFitness(self): 
+        if self.minimize:
+            return sorted(self.population, key=lambda x: x.fitness)
+        else:
+            return sorted(self.population, key=lambda x: x.fitness, reverse=True)
 
     def bestFitness(self): return max([i.fitness for i in self.population])
 
@@ -133,13 +155,13 @@ class evolAlgo:
             bestFitness = 0
             avgFitness = 0
             for j in range(self.nIter):
-                print("Old Gen", [i.fitness for i in self.population])
+                # print("Old Gen", [i.fitness for i in self.population])
                 self.parentSelection()
                 self.crossover()
-                print("w/Offspring", [i.fitness for i in self.population])
+                # print("w/Offspring", [i.fitness for i in self.population])
                 self.compFitnessAll()
                 self.survivalSelection()
-                print("Survivors", [i.fitness for i in self.survivors], '\n')
+                # print("Survivors", [i.fitness for i in self.survivors], '\n')
                 self.population = self.survivors
                 self.survivors = []
 
