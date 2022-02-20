@@ -30,8 +30,3 @@ class knapsack(evolAlgo):
                      for i in range(len(chromosome))])
         # Needs to maxiumum
         return Sum_KV
-
-ks = knapsack("f2_l-d_kp_20_878", 30, 10, 500, 0.2, 40, "tr", "tr", False)
-ks.run()
-ks.plot("Total Value","knapsack")
-

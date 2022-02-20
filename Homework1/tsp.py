@@ -48,6 +48,4 @@ class TSP(evolAlgo):
         self.population.extend(offSpring)
 
 
-tsp = TSP("tsp-ds.tsp", 30, 10, 100, 0.3, 20, "tr", "rb", minimize=True)
-tsp.run()
-tsp.plot("Tour Length", "TSP")
+
