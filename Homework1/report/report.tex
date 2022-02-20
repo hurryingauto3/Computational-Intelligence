@@ -23,10 +23,14 @@
 \makeatother
 
 \newpage
+
 \tableofcontents
 
 \section{Travelling Salesman Problem(TSP)}
-\subsection{Problem Statement and Solution}
+\subsection{Problem Statement}
+The problem involves a traveling salesman who needs to visit several different cities the question is which order to visit the cities to make the shortest possible trip. In which the salesman visits each of the cities once and then returns to the original position. This is an interesting problem cause it can be be applied to  real-world problems and have huge impacts. In this case, we have to find the best route that covers all the cities. \\
+Unfortunately a globally optimal path exist for a small number of cities but as the number of cities grows the computation time required grows. To account for these groeing cities and to get an optimized path we are going to use Evolutionary Algorithms in this case, it's going to replicate the nature selection process and get an optimized path with each generation.
+
 \subsection{Chromosome Representation}
 
 \subsection{Fitness Function}
@@ -39,10 +43,22 @@
 \subsubsection {FPS and Truncation}
 \subsubsection {RBS and Binary Tournament}
 \subsubsection {Random and Truncation}
+\subsubsection {Truncation and RBS}
+\subsubsection {RBS and Random}
+\subsubsection {Binary Tournament and FPS}
 \subsection{Analysis}
 
-\section{Knapsack}
-\subsection{Problem Statement and Solution}
+\section{Knapsack Problem}
+In the Knapsack Problem, assume there is a knapsack that is  filled with boxes and each box has a weight and a value and the objective is to fill the knapsack with the most value without going over a specified weight limit. Another good way to imagine this is through the popular aladdin tale. Imagiine you are in an aladdin's cave full of treasure but you have
+one sack and you'd have to fill it with.\\
+For example, here we have chosen four boxes and each one has a weight that is 5, 4, 7, and 2 respectively. Now the goal is to put the maximum value of boxes in the sack without going
+over a weight limit i.e. 15 kilograms. A solution for this can be represneted using four bits so for either 0s or
+1s, each one corresponding to a box. Assuming the first box
+won't be included in the knapsack the, second one will the third one will and the fourth one won't. Then we can add up the values and the weights to see how well this satisfies this problem so the weights are 2 and 1 so that's 3, i.e. less than 15 kilograms. We can give this a score on the
+value so we can actually return the score which is 4 plus 7 which is 11 i.e. the score. In an unsuccessful we can assign 1110 respectively, where two boxes are quite heavy
+so what we know with the limit being 15 if we add 9 and 7
+that's 16 which is above the limit, the solution score is 0. The goal here is to get the best combination of boxes so that we can get the most value without being overweight.
+\subsection{Problem Statement}
 \subsection{Chromosome Representation}
 \subsection{Fitness Function}
 \subsection{Parameters}
@@ -54,14 +70,20 @@
 \subsubsection {FPS and Truncation}
 \subsubsection {RBS and Binary Tournament}
 \subsubsection {Random and Truncation}
-\subsection{Analysis}
+\subsubsection {Truncation and RBS}
+\subsubsection {RBS and Random}
+\subsubsection {Binary Tournament and FPS}
+\subsection {Analysis}
 
 \section{Graph Coloring}
-\subsection{Problem Statement and Solution}
-\subsection{Chromosome Representation}
-\subsection{Fitness Function}
-\subsection{Parameters}
-\subsection{Results} 
+\subsection {Problem Statement}
+In the graph coloring problem, given a graph of vertices and edges that are wanted to color the nodes in such a way that no two adjacent vertices share a color using the fewest number of colors.\\
+\includegraphics[scale=0.8]{images/graphCol.PNG}\\[1cm]
+If we look at this Pentagon star, it can be seen that the two adjacent nodes share a color. For example, looking at the top node it can be seen that it only shares an edge with blue and there are no Reds attached to it. Then if you look around and all the other nodes throughout this graph you'll see that the same property holds true so the problem description is that if we were given a graph G and an integer M we want to find if we can color the vertices of a graph with minimum colors such that no two adjacent vertices are of same color using at most M colors so this Pentagon star problem has ten nodes so it's n value is 10 and M is equal to 3.\\
+\subsection {Chromosome Representation}
+\subsection {Fitness Function}
+\subsection {Parameters}
+\subsection {Results} 
 \subsubsection {FPS and Random}
 \subsubsection {Binary Tournament and Truncation}
 \subsubsection {Truncation and Truncation}
@@ -69,5 +91,9 @@
 \subsubsection {FPS and Truncation}
 \subsubsection {RBS and Binary Tournament}
 \subsubsection {Random and Truncation}
-\subsection{Analysis}
+\subsubsection {Truncation and RBS}
+\subsubsection {RBS and Random}
+\subsubsection {Binary Tournament and FPS}
+\subsection {Overall Analysis}
+
 \end{document}
