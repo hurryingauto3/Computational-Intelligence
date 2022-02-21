@@ -1,0 +1,32 @@
+Parent Selection,Survivor Selection,Best Fitness,Average Fitness
+Fitness Proportion,Random,982.42,645.23
+Rank Based,Truncation,1042,1039.03
+Truncation,Truncation,1037.12,1029.05
+Random,Random,935.52,550.49
+Fitness Proportion,Truncation,1037,1029.77
+Random,Truncation,1037,1031.86
+Truncation,Rank Based,1042,1019.33
+Rank Based,Random,1010.95,685.83
+Random,Fitness Proportion,1008.6,757.49
+,,,
+Fitness Proportion,Random,14.5,26.45
+Rank Based,Truncation,9,10.14
+Truncation,Truncation,9,9.2
+Random,Random,13.45,25.24
+Fitness Proportion,Truncation,9,9.07
+Rank Based,Fitness Proportion,14.72,25.46
+Random,Truncation,7.95,8.28
+Truncation,Rank Based,7,8.43
+Rank Based,Random,9.5,21.83
+Random,Fitness Proportion,17.02,30.3
+,,,
+Fitness Proportion,Random,65361.51,73877.51
+Rank Based,Truncation,55745.59,56504.16
+Truncation,Truncation,59324.92,59367.14
+Random,Random,65303.59,73838.31
+Fitness Proportion,Truncation,51655.59,52778.71
+Rank Based,Fitness Proportion,63406.15,72516.23
+Random,Truncation,52859.87,53402.1
+Truncation,Rank Based,51085.47,54714.02
+Rank Based,Random,63058.26,71953.08
+Random,Fitness Proportion,65778.02,74376.75
