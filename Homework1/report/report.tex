@@ -67,7 +67,7 @@ It is obvious that this is a minimization problem therefore the smaller the fitn
 The Graph Coloring problem is a problem in which a graph is colored with a number of colors such that no two adjacent vertices are colored with the same color. The graph is represented as a list of edges, where each edge is a tuple of the form (u,v). The maximum coloring of a graph will be the number of nodes in the graph.
 
 Therefore, the chromosome is represented as an array of colors represented as integers ranging from 1 to $n$, where $n$ is the number of nodes in the graph. The population was initialized by simply taking random integers between 1 and $n$ for each edge. The following is a representation of a chromosome:
-% $$random(1,n), random(1,n), \dots, random(1,n)$$
+$$[randomint(1,n), randomint(1,n), \dots, randomint(1,n)]$$
 
 The fitness is then the number of color violations present in a solution. The number of color violations is calculated by counting the number of edges that are adjacent to two vertices that have the same color. This computation is slightly expensive as it involves a nested for loop of a time complexity of $O(n^2)$. The fitness of each chromosome can be mathematically represented as follows:
 $$\sum_{i=1}^{n-1} \left\{ \left\{ \begin{array}{ll} 1 & \text{if} \; \text{color}(i) = \text{color}(i+1) \\ 0 & \text{otherwise} \end{array} \right. \right\}$$
@@ -77,7 +77,7 @@ Of course, there is a limitation within this fitness function which is that it d
 The Knapsack problem is a problem in which a knapsack is filled with a number of items such that the total weight of the items is less than or equal to the capacity of the knapsack. The items are represented as a list of tuples of the form (weight, value). The knapsack is represented as a list of tuples of the form (weight, value). 
 
 The chromosome is represented as an array of $1$'s and $0$'s siginfying whether the item at that particual index was added to the knapsack or not. Therefore, a chromosome looks as follows:
-$$\[randomint(0,1), randomint(0,1), \dots, randomint(0,1)\]$$
+$$[randomint(0,1), randomint(0,1), \dots, randomint(0,1)]$$
 
 The fitness is then the total value of the items in the knapsack. The total value is calculated by summing the values of the items in the knapsack. The fitness of each chromosome can be mathematically represented as follows:
 
@@ -87,8 +87,6 @@ The limitation of this fitness function is that it does not account for a high w
 \section{Statistics and Analysis}
 
 \subsection{Travelling Salesman Problem(TSP)}
-
-\subsection{Results} 
 \subsubsection {FPS and Random}
 \begin{figure}[H]
     \centering
@@ -155,13 +153,11 @@ The limitation of this fitness function is that it does not account for a high w
     \caption {TSP - RBS \& Random}
     \label {fig:tpsRbR}
 \end{figure}
-\subsection {Overall Analysis}
 
 \newpage
 
-\section{Knapsack Problem}
+\subsection{Knapsack Problem}
 
-\subsection{Results} 
 \subsubsection {FPS and Random}
 \begin{figure}[H]
     \centering
@@ -233,12 +229,9 @@ The limitation of this fitness function is that it does not account for a high w
     \label {fig:kpRbR}
 \end{figure}
 
-\subsection {Overall Analysis}
-
 \newpage
 
-\section{Graph Coloring}
-\subsection {Results} 
+\subsection{Graph Coloring}
 \subsubsection {FPS and Random}
 \begin{figure}[H]
     \centering
@@ -309,23 +302,9 @@ The limitation of this fitness function is that it does not account for a high w
     \caption {Graph Coloring - RBS \& Random}
     \label {fig:gcRbR}
 \end{figure}
-
-\subsection {Overall Analysis}
-%FR - 52.26%
-%RB - 0.29%
-%TT - 0.78%
-%RR - 69.9%
-%FT - 0.7%
-%RT - 0.5%
-%TR - 2.2%
-%RkR - 47.4%
-%RF - 33.15%
-
 \newpage
-
-\section{Final Results}
-\subsection{Comparative Analysis}
-\begin{table}[ht]
+\subsection {Analysis}
+\begin{table}[!ht]
     \centering
     \begin{tabular}{|l|l|l|l|}
     \hline
@@ -364,5 +343,16 @@ The limitation of this fitness function is that it does not account for a high w
         Random & Fitness Proportion & 65778.02 & 74376.75 \\ \hline
     \end{tabular}
 \end{table}
+%FR - 52.26%
+%RB - 0.29%
+%TT - 0.78%
+%RR - 69.9%
+%FT - 0.7%
+%RT - 0.5%
+%TR - 2.2%
+%RkR - 47.4%
+%RF - 33.15%
+
+
 
 \end{document}
