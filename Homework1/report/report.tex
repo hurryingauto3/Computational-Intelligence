@@ -2,7 +2,7 @@
 
 \input{usepackages}
 \input{page_margin}
-
+\usepackage{amsthm}
 \begin{document}
 
 \title{\large Course CS-451: Computational Intelligence\\[0.5cm]
@@ -30,6 +30,7 @@
 
 \section{Genetic Algorithm Implementation}
 \subsection{Parameters}
+We have chosen default parameters as a control to run our tests between what selection schemes give the best results.
 \begin{itemize}
     \item Population Size: $30$
     \item OffSpring per Generation: $10$
@@ -56,7 +57,7 @@ The Travelling Salesman Problem (TSP) is a problem in which a salesman has to vi
 To make implementation easier we removed the last restriction of the returning to the same city. The cities are represented as a list of coordinates, where each coordinate is a tuple of the form (x,y). 
 
 Each chromosome is represented as an ordered array of cities. The population was initialized by simply taking a random permutation of the initial list of cities. The following is a representation of a chromosome: 
-/[permutation(\[(x_1, y_1), (x_2,y_2), \dots, (x_n, y_n)\])/]
+$$permutation([(x_1, y_1), (x_2,y_2), \dots, (x_n, y_n)])$$
 
 The Fitness function is the total distance of the chromosome that was calculated by summing the distances between each city in the chromosome. The distance between two cities is then calculated as the Euclidean distance between two consecutive cities. This computation is slightly expensive as it involves a nested for loop of a time complexity of $O(n^2)$. The fitness of each chromosome can be mathematically represented as follows:
 $$\sum_{i=1}^{n-1} \sqrt{(x_i - x_{i+1})^2 + (y_i - y_{i+1})^2}$$
@@ -69,7 +70,7 @@ Therefore, the chromosome is represented as an array of colors represented as in
 % $$random(1,n), random(1,n), \dots, random(1,n)$$
 
 The fitness function is then the number of color violations present in a solution. The number of color violations is calculated by counting the number of edges that are adjacent to two vertices that have the same color. This computation is slightly expensive as it involves a nested for loop of a time complexity of $O(n^2)$. The fitness of each chromosome can be mathematically represented as follows:
-% $$\sum_{i=1}^{n-1} \sum_{j=1}^{n-1} \left\{ \left\{ \begin{array}{ll} 1 & \text{if} \; \text{color}(i) = \text{color}(j) \\ 0 & \text{otherwise} \end{array} \right. \right\} \left\}$$
+$$\sum_{i=1}^{n-1} \left\{ \left\{ \begin{array}{ll} 1 & \text{if} \; \text{color}(i) = \text{color}(i+1) \\ 0 & \text{otherwise} \end{array} \right. \right\}$$
 
 Of course, there is a limitation within this fitness function which is that it does not account for a minimum unique coloring. This adds a level of complexity to the problem which was not implemented for the scope of this assignment. It is obvious that the lower the number of edge violations the better the solution, therefore this is a minimization problem.
 \subsubsection{Knapsack}
