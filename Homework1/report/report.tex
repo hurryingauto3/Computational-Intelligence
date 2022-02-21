@@ -3,6 +3,7 @@
 \input{usepackages}
 \input{page_margin}
 \usepackage{amsthm}
+\usepackage{float}
 \begin{document}
 
 \title{\large Course CS-451: Computational Intelligence\\[0.5cm]
@@ -86,225 +87,153 @@ $$\sum_{i=0}^{n} \left\{ \left\{ \begin{array}{ll} value(i) & \text{if} \; \text
 The limitation of this fitness function is that it does not account for a high weight knapsack, another parameter that could be considered is the total weight of the knapsack when looking at the fitness of the knapsack - then the fitness function could be the $\frac{total_value}{total_weight}$. This adds a level of complexity to the problem which was not implemented for the scope of this assignment therefore we did not implement it. It is obvious that the higher the total value of the items in the knapsack the better the solution, therefore this is a maximization problem.
 \section{Statistics and Analysis}
 
-\subsection{Travelling Salesman Problem(TSP)}
+\subsection{Fitness vs Generation Plots}
 \subsubsection {FPS and Random}
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale = 0.6]{images/tsp_fp_rd.png}
-    \caption {TSP - FPS \& Random}
-    \label {fig:tpsFR}
+\begin{figure}[!h]
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{images/tsp_fp_rd.png}
+  \caption{TSP}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{images/knapsack_fp_rd.png}
+  \caption{Knapsack}
+\endminipage\hfill
+\minipage{0.32\textwidth}%
+  \includegraphics[width=\linewidth]{images/knapsack_fp_rd.png}
+  \caption{Graph Coloring}
+\endminipage
 \end{figure}
+
 \subsubsection {RBS and Truncation}
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale = 0.6]{images/tsp_rb_tr.png}
-    \caption {TSP - RBS \& Truncation}
-    \label {fig:tpsBT}
+\begin{figure}[H]
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{images/tsp_rb_tr.png}
+  \caption{TSP}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{images/knapsack_rb_tr.png}
+  \caption{Knapsack}
+\endminipage\hfill
+\minipage{0.32\textwidth}%
+  \includegraphics[width=\linewidth]{images/knapsack_rb_tr.png}
+  \caption{Graph Coloring}
+\endminipage
 \end{figure}
 
 \subsubsection {Truncation and Truncation}
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[scale = 0.6]{images/tsp_tr_tr.png}
-    \caption {TSP - Truncation \& Truncation}
-    \label {fig:tpsTT}
-\end{figure}
-\subsubsection {Random and Random}
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale = 0.6]{images/tsp_rd_rd.png}
-    \caption {TSP - Random \& Random}
-    \label {fig:tpsRR}
-\end{figure}
-\subsubsection {FPS and Truncation}
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale = 0.6]{images/tsp_fp_tr.png}
-    \caption {TSP - FPS \& Truncation}
-    \label {fig:tpsFT}
-\end{figure}
-\subsubsection {Random and FPS}
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale = 0.6]{images/tsp_rd_fp.png}
-    \caption {TSP - Random \& FPS}
-    \label {fig:tpsRB}
-\end{figure}
-
-\subsubsection {Random and Truncation}
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale = 0.6]{images/tsp_rd_tr.png}
-    \caption {TSP - Random \& Truncation}
-    \label {fig:tpsRT}
-\end{figure}
-\subsubsection {Truncation and RBS}
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale = 0.6]{images/tsp_tr_rb.png}
-    \caption {TSP - Truncation \& RBS}
-    \label {fig:tpsTR}
-\end{figure}
-\subsubsection {RBS and Random}
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale = 0.6]{images/tsp_rb_rd.png}
-    \caption {TSP - RBS \& Random}
-    \label {fig:tpsRbR}
-\end{figure}
-
-\newpage
-
-\subsection{Knapsack Problem}
-
-\subsubsection {FPS and Random}
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale = 0.6]{images/knapsack_fp_rd.png}
-    \caption {Knapsack - FPS \& Random}
-    \label {fig:kpFR}
-\end{figure}
-\subsubsection {RBS and Truncation}
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale = 0.6]{images/knapsack_rb_tr.png}
-    \caption {Knapsack - RBS \& Truncation}
-    \label {fig:kpBT}
-\end{figure}
-
-\subsubsection {Truncation and Truncation}
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale = 0.6]{images/knapsack_tr_tr.png}
-    \caption {Knapsack - Truncation \& Truncation}
-    \label {fig:kpTT}
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{images/tsp_tr_tr.png}
+  \caption{TSP}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{images/knapsack_tr_tr.png}
+  \caption{Knapsack}
+\endminipage\hfill
+\minipage{0.32\textwidth}%
+  \includegraphics[width=\linewidth]{images/knapsack_tr_tr.png}
+  \caption{Graph Coloring}
+\endminipage
 \end{figure}
 
 \subsubsection {Random and Random}
 \begin{figure}[H]
-    \centering
-    \includegraphics[scale = 0.6]{images/knapsack_rd_rd.png}
-    \caption {Knapsack - Random \& Random}
-    \label {fig:kpRR}
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{images/tsp_rd_rd.png}
+  \caption{TSP}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{images/knapsack_rd_rd.png}
+  \caption{Knapsack}
+\endminipage\hfill
+\minipage{0.32\textwidth}%
+  \includegraphics[width=\linewidth]{images/knapsack_rd_rd.png}
+  \caption{Graph Coloring}
+\endminipage
 \end{figure}
 
 \subsubsection {FPS and Truncation}
 \begin{figure}[H]
-    \centering
-    \includegraphics[scale = 0.6]{images/knapsack_fp_tr.png}
-    \caption {Knapsack - FPS \& Truncation}
-    \label {fig:kpFT}
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{images/tsp_fp_tr.png}
+  \caption{TSP}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{images/knapsack_fp_tr.png}
+  \caption{Knapsack}
+\endminipage\hfill
+\minipage{0.32\textwidth}%
+  \includegraphics[width=\linewidth]{images/knapsack_fp_tr.png}
+  \caption{Graph Coloring}
+\endminipage
 \end{figure}
 
 \subsubsection {Random and FPS}
 \begin{figure}[H]
-    \centering
-    \includegraphics[scale = 0.6]{images/knapsack_rd_fp.png}
-    \caption {Knapsack - Random \& FPS}
-    \label {fig:kpRB}
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{images/tsp_rd_fp.png}
+  \caption{TSP}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{images/knapsack_rd_fp.png}
+  \caption{Knapsack}
+\endminipage\hfill
+\minipage{0.32\textwidth}%
+  \includegraphics[width=\linewidth]{images/knapsack_rd_fp.png}
+  \caption{Graph Coloring}
+\endminipage
 \end{figure}
+
 
 \subsubsection {Random and Truncation}
 \begin{figure}[H]
-    \centering
-    \includegraphics[scale = 0.6]{images/knapsack_rd_tr.png}
-    \caption {Knapsack - Random \& Truncation}
-    \label {fig:kpRT}
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{images/tsp_rd_tr.png}
+  \caption{TSP}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{images/knapsack_rd_tr.png}
+  \caption{Knapsack}
+\endminipage\hfill
+\minipage{0.32\textwidth}%
+  \includegraphics[width=\linewidth]{images/knapsack_rd_tr.png}
+  \caption{Graph Coloring}
+\endminipage
 \end{figure}
 
 \subsubsection {Truncation and RBS}
 \begin{figure}[H]
-    \centering
-    \includegraphics[scale = 0.6]{images/knapsack_tr_rb.png}
-    \caption {Knapsack - Truncation \& RBS}
-    \label {fig:kpTR}
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{images/tsp_tr_rb.png}
+  \caption{TSP}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{images/knapsack_tr_rb.png}
+  \caption{Knapsack}
+\endminipage\hfill
+\minipage{0.32\textwidth}%
+  \includegraphics[width=\linewidth]{images/knapsack_tr_rb.png}
+  \caption{Graph Coloring}
+\endminipage
 \end{figure}
 
 \subsubsection {RBS and Random}
 \begin{figure}[H]
-    \centering
-    \includegraphics[scale = 0.6]{images/knapsack_rd_rd.png}
-    \caption {Knapsack - RBS \& Random}
-    \label {fig:kpRbR}
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{images/tsp_rb_rd.png}
+  \caption{TSP}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+  \includegraphics[width=\linewidth]{images/knapsack_rb_rd.png}
+  \caption{Knapsack}
+\endminipage\hfill
+\minipage{0.32\textwidth}%
+  \includegraphics[width=\linewidth]{images/knapsack_rb_rd.png}
+  \caption{Graph Coloring}
+\endminipage
 \end{figure}
-
-\newpage
-
-\subsection{Graph Coloring}
-\subsubsection {FPS and Random}
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale = 0.6]{images/graphcoloring_fp_rd.png}
-    \caption {Graph Coloring - FPS \& Random}
-    \label {fig:gcFR}
-\end{figure}
-\subsubsection {RBS and Truncation}
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale = 0.6]{images/graphcoloring_rb_tr.png}
-    \caption {Graph Coloring - RBS \& Truncation}
-    \label {fig:gcBT}
-\end{figure}
-
-\subsubsection {Truncation and Truncation}
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale = 0.6]{images/graphcoloring_tr_tr.png}
-    \caption {Graph Coloring - Truncation \& Truncation}
-    \label {fig:gcTT}
-\end{figure}
-
-\subsubsection {Random and Random}
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale = 0.6]{images/graphcoloring_rd_rd.png}
-    \caption {Graph Coloring - Random \& Random}
-    \label {fig:gcRR}
-\end{figure}
-
-\subsubsection {FPS and Truncation}
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale = 0.6]{images/graphcoloring_fp_tr.png}
-    \caption {Graph Coloring - FPS \& Truncation}
-    \label {fig:gcFT}
-\end{figure}
-
-\subsubsection {Random and FPS}
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale = 0.6]{images/graphcoloring_rd_fp.png}
-    \caption {Graph Coloring - Random \& FPS}
-    \label {fig:gcRB}
-\end{figure}
-
-\subsubsection {Random and Truncation}
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale = 0.6]{images/graphcoloring_rd_tr.png}
-    \caption {Graph Coloring - Random \& Truncation}
-    \label {fig:gcRT}
-\end{figure}
-
-\subsubsection {Truncation and RBS}
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale = 0.6]{images/graphcoloring_tr_rb.png}
-    \caption {Graph Coloring - Truncation \& RBS}
-    \label {fig:gcTR}
-\end{figure}
-
-\subsubsection {RBS and Random}
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale = 0.6]{images/graphcoloring_rb_rd.png}
-    \caption {Graph Coloring - RBS \& Random}
-    \label {fig:gcRbR}
-\end{figure}
-\newpage
-\subsection {Analysis}
-\begin{table}[!ht]
+\begin{table}[H]
     \centering
     \begin{tabular}{|l|l|l|l|}
     \hline
@@ -343,6 +272,10 @@ The limitation of this fitness function is that it does not account for a high w
         Random & Fitness Proportion & 65778.02 & 74376.75 \\ \hline
     \end{tabular}
 \end{table}
+
+\newpage
+\subsection {Analysis}
+
 %FR - 52.26%
 %RB - 0.29%
 %TT - 0.78%
