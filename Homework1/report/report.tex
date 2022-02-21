@@ -28,23 +28,56 @@
 
 \newpage
 
-\section{Travelling Salesman Problem(TSP)}
-\subsection{Problem Statement}
-The problem involves a traveling salesman who needs to visit several different cities the question is which order to visit the cities to make the shortest possible trip. In which the salesman visits each of the cities once and then returns to the original position. This is an interesting problem cause it can be be applied to  real-world problems and have huge impacts. In this case, we have to find the best route that covers all the cities. \\
-Unfortunately a globally optimal path exist for a small number of cities but as the number of cities grows the computation time required grows. To account for these groeing cities and to get an optimized path we are going to use Evolutionary Algorithms in this case, it's going to replicate the nature selection process and get an optimized path with each generation.
-
-\subsection{Chromosome Representation}
-
-\subsection{Fitness Function}
+\section{Genetic Algorithm Implementation}
 \subsection{Parameters}
-The parameters that have been set here are,
 \begin{itemize}
-    \item Population size: 30
-    \item Number of offspring to be produced in each generation :10
-    \item No. of generations: 100
-    \item Mutation rate: 0.5
-    \item No of Iterations: 10
+    \item Population Size: $30$
+    \item OffSpring per Generation: $10$
+    \item Number of Generations: $100$
+    \item Mutation rate: $0.4$
+    \item Number of Iterations: $40$ 
 \end{itemize}
+\subsection{Crossover}
+The generic crossover function works as follows:
+\begin{enumerate}
+    \item Select two random individuals from the selected parents
+    \item Select the first half the first individual and the second half of the second individual to create a child Chromosome
+    \item Select the first half of the second individual and the second half of the first individual to create a child Chromosome
+    \item Mutate the child Chromosomes
+    \item Append the child Chromosomes to the new population
+\end{enumerate}
+This function slightly changes in TSP as we cannot have repeated genes in a chromosome. A random crossover point is chosen for the first individual and then the remainder of the second individual is added to the child chromosome. The process is repeated with the second individual and the first individuals flipped. The child chromosomes are then mutated and appended to the new population.
+\subsection{Mutation}
+The mutation function is quite simplistic where a chromosome is taken permutated on the basis of the mutation rate.
+\subsection{Chromosome Representations and Fitness Function}
+\subsubsection{Travelling Salesman Problem (TSP)}
+The Travelling Salesman Problem (TSP) is a problem in which a salesman has to visit a number of cities and return to the starting city. The salesman has to visit each city exactly once and return to the starting city. The distance between two cities is the Euclidean distance. 
+
+To make implementation easier we removed the last restriction of the returning to the same city. The cities are represented as a list of coordinates, where each coordinate is a tuple of the form (x,y). 
+
+Each chromosome is represented as an ordered array of cities. The population was initialized by simply taking a random permutation of the initial list of cities. The following is a representation of a chromosome: 
+$$permutation(\[(x_1, y_1), (x_2,y_2), \dots, (x_n, y_n)\])$$
+
+The Fitness function is the total distance of the chromosome that was calculated by summing the distances between each city in the chromosome. The distance between two cities is then calculated as the Euclidean distance between two consecutive cities. This computation is slightly expensive as it involves a nested for loop of a time complexity of $O(n^2)$. The fitness of each chromosome can be mathematically represented as follows:
+$$\sum_{i=1}^{n-1} \sqrt{(x_i - x_{i+1})^2 + (y_i - y_{i+1})^2}$$
+It is obvious that this is a minimization problem therefore the smaller the fitness value the better the solution.
+
+\subsubsection{Graph Coloring}
+The Graph Coloring problem is a problem in which a graph is colored with a number of colors such that no two adjacent vertices are colored with the same color. The graph is represented as a list of edges, where each edge is a tuple of the form (u,v). The maximum coloring of a graph will be the number of nodes in the graph.
+
+Therefore, the chromosome is represented as an array of colors represented as integers ranging from 1 to $n$, where $n$ is the number of nodes in the graph. The population was initialized by simply taking random integers between 1 and $n$ for each edge. The following is a representation of a chromosome:
+$$\[random(1,n), random(1,n), \dots, random(1,n)\]$$
+
+The fitness function is then the number of color violations present in a solution. The number of color violations is calculated by counting the number of edges that are adjacent to two vertices that have the same color. This computation is slightly expensive as it involves a nested for loop of a time complexity of $O(n^2)$. The fitness of each chromosome can be mathematically represented as follows:
+$$\sum_{i=1}^{n-1} \sum_{j=1}^{n-1} \left\{ \left\{ \begin{array}{ll} 1 & \text{if} \; \text{color}(i) = \text{color}(j) \\ 0 & \text{otherwise} \end{array} \right. \right\} \left\}$$
+
+Of course, there is a limitation within this fitness function which is that it does not account for a minimum unique coloring. This adds a level of complexity to the problem which was not implemented for the scope of this assignment. It is obvious that the lower the number of edge violations the better the solution, therefore this is a minimization problem.
+\subsubsection{Knapsack}
+
+\section{Statistics and Analysis}
+
+\subsection{Travelling Salesman Problem(TSP)}
+
 \subsection{Results} 
 \subsubsection {FPS and Random}
 In the case of FPS and Random,
@@ -178,39 +211,7 @@ Best Fitness =
 \newpage
 
 \section{Knapsack Problem}
-\subsection{Problem Statement}
-In the Knapsack Problem, assume there is a knapsack that is filled with boxes and each box has a 
-weight and a value and the objective is to fill the knapsack with the most value without going over 
-a specified weight limit. Another good way to imagine this is through the popular aladdin tale. 
-Imagiine you are in an aladdin's cave full of treasure but you have one sack and you'd have to fill 
-it with.\\
-For example, here we have chosen four boxes and each one has a weight that is 5, 4, 7, and 2 
-respectively. Now the goal is to put the maximum value of boxes in the sack without going over a 
-weight limit i.e. 15 kilograms. A solution for this can be represneted using four bits so for either 0s 
-or 1s, each one corresponding to a box. Assuming the first box
-won't be included in the knapsack 
-the, second one will the third one will and the fourth one won't. Then we can add up the values 
-and the weights to see how well this satisfies this problem so the weights are 2 and 1 so that's 3, i.e. 
-less than 15 kilograms. We can give this a score on the
-value so we can actually return the score 
-which is 4 plus 7 which is 11 i.e. the score. In an unsuccessful we can assign 1110 respectively, 
-where two boxes are quite heavy so what we know with the limit being 15 if we add 9 and 7 that's 
-16 which is above the limit, the solution score is 0. The goal here is to get the best combination of 
-boxes so that we can get the most value without being overweight.
 
-\subsection{Chromosome Representation}
-
-\subsection{Fitness Function}
-
-\subsection{Parameters}
-The parameters that have been set here are,
-\begin{itemize}
-    \item Population size: 30
-    \item Number of offspring to be produced in each generation :10
-    \item No. of generations: 100
-    \item Mutation rate: 0.5
-    \item No of Iterations: 10
-\end{itemize}
 \subsection{Results} 
 \subsubsection {FPS and Random}
 In the case of FPS and Random,
@@ -344,28 +345,6 @@ Best Fitness =
 \newpage
 
 \section{Graph Coloring}
-\subsection {Problem Statement}
-In the graph coloring problem, given a graph of vertices and edges that are wanted to color the
-nodes in such a way that no two adjacent vertices share a color using the fewest number of colors.
-\includegraphics[scale=0.8]{images/graphCol.PNG}\\[1cm]
-If we look at this Pentagon star, it can be seen that the two adjacent nodes share a color. For 
-example, looking at the top node it can be seen that it only shares an edge with blue and there 
-are no Reds attached to it. Then if you look around and all the other nodes throughout this graph 
-you'll see that the same property holds true so the problem description is that if we were given a 
-graph G and an integer M we want to find if we can color the vertices of a graph with minimum 
-colors such that no two adjacent vertices are of same color using at most M colors so this Pentagon 
-star problem has ten nodes so it's n value is 10 and M is equal to 3.\\
-\subsection {Chromosome Representation}
-\subsection {Fitness Function}
-\subsection {Parameters}
-The parameters that have been set here are,
-\begin{itemize}
-    \item Population size: 30
-    \item Number of offspring to be produced in each generation :10
-    \item No. of generations: 100
-    \item Mutation rate: 0.5
-    \item No of Iterations: 10
-\end{itemize}
 \subsection {Results} 
 \subsubsection {FPS and Random}
 In the case of FPS and Random,
