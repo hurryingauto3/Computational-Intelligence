@@ -86,7 +86,8 @@ $$\sum_{i=0}^{n} \left\{ \left\{ \begin{array}{ll} value(i) & \text{if} \; \text
 
 The limitation of this fitness function is that it does not account for a high weight knapsack, another parameter that could be considered is the total weight of the knapsack when looking at the fitness of the knapsack - then the fitness function could be the $\frac{total_value}{total_weight}$. This adds a level of complexity to the problem which was not implemented for the scope of this assignment therefore we did not implement it. It is obvious that the higher the total value of the items in the knapsack the better the solution, therefore this is a maximization problem.
 \section{Statistics and Analysis}
-
+\subsection {Google Colab Notebook}
+The link to the Google Colab Notebook for the assignment is \href{https://colab.research.google.com/drive/1AgRRDJZLwOUPDDmhBcisCZp-pijTVeMK?usp=sharing}{here}
 \subsection{Fitness vs Generation Plots}
 \subsubsection {FPS and Random}
 \begin{figure}[!h]
@@ -274,22 +275,24 @@ The limitation of this fitness function is that it does not account for a high w
 \end{table}
 
 \newpage
-\subsection {Google Colab}
-The link to the Google Colab Notebook for the assignment is \href{https://colab.research.google.com/drive/1AgRRDJZLwOUPDDmhBcisCZp-pijTVeMK?usp=sharing}{here}
 \subsection {Analysis}
-
 In the case of selection where the Parent is Fitness Proportion \& Survivor is Random, it can be seen that there are inconsisties across all the optimization problems. This combination of selection has had the same impact on all three and what's worse is that there is no convergence to a single point. The randomness can also be observed through the difference between the average and the best fitness values in all of the combinatorial optimization problems.
 
 In the case of selection where the Parent is Rank Based \& Survivor is Truncation, it can be observed that the convergence is almost exponential in the case of TSP and Knapsack. However, with Graph Coloring it still takes some time to converge. This is a combination of selection scheme that seems to have had a similiar positive impact across all cases.
 
 In the case of selection where the Parent is Truncation \& Survivor is Truncation, the convergence happens rather quickly. In fact, it's faster than the last selection scheme (RBS and Truncation). However, for Knapsack, at the near point  of convergence the pattern seem to be very random for the average average fitness value.
 
-In the case of selection where the Parent is Random \& Survivor is Random, it's observed that the pattern here is very random and it seems similiar to the selection scheme combination, FPS and Random. Similiar to the aforementioned selection scheme, this combination has a high margin of difference between the average fitness values and the average best fitness values.  Which is another observation that visualizes the randomness in this selection sxheme across all optimization cases.  
-In the case of selection where the Parent is Fitness Proportion \& Survivor is Truncation,\\
-In the case of selection where the Parent is Random \& Survivor is Truncation,\\
-In the case of selection where the Parent is Truncation \& Survivor is Rank Based,\\
-In the case of selection where the Parent is Rank Based \& Survivor is Random,\\
-In the case of selection where the Parent is Random \& Survivor is Fitness Proportion,\\ 
+In the case of selection where the Parent is Random \& Survivor is Random, it's observed that the pattern here is very random and it seems similiar to the selection scheme combination, FPS and Random. Similiar to the aforementioned selection scheme, this combination has a high margin of difference between the average fitness values and the average best fitness values.  Which is another observation that visualizes the randomness in this selection sxheme across all optimization cases.
+
+In the case of selection where the Parent is Fitness Proportion \& Survivor is Truncation, where it can be observed that, like some of the previous selection scheme combinations, the convergence here is exponential, more so in the case of Graph Coloring. However, in TSP it did take, relative to other combinatorial optimization problems, more time to converge.
+
+In the case of selection where the Parent is Random \& Survivor is FPS, what can be absorved here is that there is no convergence. Just like section 2.2.1 and section 2.2.4, the pattern here is completely random. The difference between the average fitness value and the average best fitness value is also great across all the combinatorial optimization problems. However, what can be noted here is that in all three of the mentioned selection schemes the one thing that has been consistent is that they have at least one selection that is Random.
+
+In the case of selection where the Parent is Random \& Survivor is Truncation, it can be observed that there is almost an immediate convergence across all problems. Except for a slight hiccup in TSP and Graph Coloring. What's interesting here is that even though one of the selection is Random but it still manages to converge. This is the best combination so far to use Random selection in.
+
+In the case of selection where the Parent is Truncation \& Survivor is RBS, it can be seen that there is convergence. However, the convergence here is not as immediate as expected. It takes sometime to converge.
+
+In the case of selection where the Parent is RBS \& Survivor is Random, there is no convergence. As one of the selection scheme is Random, thus the pattern here is random.
 %FR - 52.26%
 %RB - 0.29%
 %TT - 0.78%
