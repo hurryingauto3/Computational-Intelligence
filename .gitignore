@@ -1,6 +1,5 @@
 /__pycache__
 *.ipynb
-*.pdf
 *.pyc
 *.json
 *.txt
