@@ -141,46 +141,59 @@
 
 %------------------------------------------------
 
-%------------------------------------------------
-\section{Experimental Results}
-%------------------------------------------------
-
-\begin{frame}{Evaluation Metrics}
-    \begin{itemize}
-       \item \textbf{Normalized Mutual Information (NMI)}: It is used to measure the similarity between the detected communities and the known communities. Given two partitions $A$ and $B$ of a network in communities, let $C$ be the confusion matrix whose element $C_{ij}$ is the number of nodes of community $i$ of the partition $A$ that are also in the community $j$ of the partition $B$.
-       \item \textbf{Modularity}: It is a criterion for evaluating the quality of community detection.
-    \end{itemize}
-\end{frame}
-
-%------------------------------------------------
-
 \begin{frame}{Experiments on synthetic LFR networks}
-    \begin{itemize}
-        \item \textbf{Normalized Mutual Information (NMI)}: It is used to measure the similarity between the detected communities and the known communities. Given two partitions $A$ and $B$ of a network in communities, let $C$ be the confusion matrix whose element $C_{ij}$ is the number of nodes of community $i$ of the partition $A$ that are also in the community $j$ of the partition $B$.
-        \item \textbf{Modularity}: It is a criterion for evaluating the quality of community detection.
-    \end{itemize}
+    \begin{columns}
+        % Column 1
+        \begin{column}{0.5\textwidth}
+                It can be observed that the algorithm performs relatively better than the others
+        \end{column}
+        % Column 2    
+        \begin{column}{0.5\textwidth}
+            \begin{figure}
+            \centering
+                \includegraphics[width=0.8\textwidth]{synthetic-LFR.PNG}
+                \caption{Comparison of F-SGCD and other algorithm.}
+            \end{figure}
+        \end{column}
+    \end{columns}
 \end{frame}
 
 %------------------------------------------------
 
 \begin{frame}{Experiments on synthetic real-world networks}
-    \begin{itemize}
-        \item Normalized Mutual Information (NMI) \\
-        It is used to measure the similarity between the detected communities and the known communities. Given two partitions $A$ and $B$ of a network in communities, let $C$ be the confusion matrix whose element $C_{ij}$ is the number of nodes of community $i$ of the partition $A$ that are also in the community $j$ of the partition $B$.
-        \item Modularity \\
-        It is a criterion for evaluating the quality of community detection.
-    \end{itemize}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \begin{figure}
+            \centering
+                \includegraphics[width=1\textwidth]{synthetic-realworld.PNG}
+                \caption{Q values of the eight compared algorithms on four real-world networks, averaging
+                over 20 runs.}
+            \end{figure}
+        \end{column}
+    \end{columns}
 \end{frame}
 
 %------------------------------------------------
 
 \begin{frame}{Network hierarchy of Pareto solution}
     \begin{itemize}
-        \item Hierarchal Modularity \\
-        It is used to measure the similarity between the detected communities and the known communities. Given two partitions $A$ and $B$ of a network in communities, let $C$ be the confusion matrix whose element $C_{ij}$ is the number of nodes of community $i$ of the partition $A$ that are also in the community $j$ of the partition $B$.
-        \item Bottlenose Dolphins \\
-        It is a criterion for evaluating the quality of community detection.
+        \item Hierarchal modularity \\
+        In a hierarchical modular network, many small-scale vertices with dense internal connections are loosely connected, and thus forming a larger-scale topology module. This topological structure is arranged in hierarchical order, and the network that generates modules iteratively is called hierarchical network.
+        \item Bottlenose Dolphins
     \end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}{References}
+    % Beamer does not support BibTeX so references must be inserted manually as below
+    \footnotesize{
+        \begin{thebibliography}{99}
+            \bibitem[Li-Cao-Ding-Li, 2020]{p1} Qi Li, Zehong Cao, Weiping Ding, Qing Li (2020)
+            \newblock A multi-objective adaptive evolutionary algorithm to extract communities in networks
+            \newblock \emph{Swarm and Evolutionary Computation} 100629.
+        \end{thebibliography}
+    }
 \end{frame}
 
 %------------------------------------------------
