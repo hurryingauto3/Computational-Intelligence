@@ -120,23 +120,55 @@
 \begin{frame}{Algorithm}
     \begin{algorithm}[H]
         \begin{algorithmic}[1]
-        \STATE \textbf Input: Adaptive parameters: adaptive crossover probability $p_{c}$ of
+        \STATE \textbf{Initialization:} Adaptive parameters: adaptive crossover probability $p_{c}$ of
         population $P$, adaptive mutation probability $p_{m}$ of population $P$
-        \STATE $P \leftarrow $ Initialize Population
-        \STATE $E \leftarrow $ Initialize Elite Gene Pool
-        \STATE While Termination != true;
+        \STATE $P \leftarrow Initialization(Population);$
+        \STATE While $Termination(Generation)$;
         \STATE $P_{parent} \leftarrow Select(P)$
         \STATE $p_{c}, p_{m} \leftarrow Adaptive();$
         \STATE $p_{cross} \leftarrow Crossover(P_{parent}, p_{c})$
         \STATE $p_{cross} \leftarrow Mutation(P_{cross}, p_{m})$
         \STATE $P \leftarrow Update(P_{child})$
-        \STATE Update Elite Gene Pool
+        \STATE $ElitePool();//$ {Update the elite gene pool}
         \STATE End;
-        \STATE \textbf{Output} The results of community detection //{Transforming the most adaptable non-inferior solutions from the elite gene pool into community detection results}
+        \STATE \textbf{return} The results of community detection //{Transforming the most adaptable non-inferior solutions from the elite gene pool into community detection results}
         \end{algorithmic}
         \caption{Framework of F-SGCD Algorithm}
         \label{alg:seq}
     \end{algorithm}
+\end{frame}
+
+%------------------------------------------------
+
+%------------------------------------------------
+\section{Experimental Results}
+%------------------------------------------------
+
+\begin{frame}{Datasets}
+    \begin{itemize}
+        \item Real-world netowrks\\
+        \begin{itemize}
+            \item Bottlenose Dolphins
+            \item Zachary's Karate Club
+            \item Football
+            \item Krebs' book
+        \end{itemize}
+        \item Artificial networks \\
+        \begin{itemize}
+            \item LFR (Lancichinetti-Fortunato-Radicchi) Benchmark
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}{Evaluation Metrics}
+    \begin{itemize}
+        \item Normalized Mutual Information (NMI) \\
+        It is used to measure the similarity between the detected communities and the known communities. Given two partitions $A$ and $B$ of a network in communities, let $C$ be the confusion matrix whose element $C_{ij}$ is the number of nodes of community $i$ of the partition $A$ that are also in the community $j$ of the partition $B$.
+        \item Modularity \\
+        It is a criterion for evaluating the quality of community detection.
+    \end{itemize}
 \end{frame}
 
 %------------------------------------------------
@@ -197,35 +229,10 @@
 \end{frame}
 
 %------------------------------------------------
-\section{Conclusion}
-%------------------------------------------------
 
-\begin{frame}{Conclusion}
-    \begin{itemize}
-        \item Normalized Mutual Information (NMI) \\
-        It is used to measure the similarity between the detected communities and the known communities. Given two partitions $A$ and $B$ of a network in communities, let $C$ be the confusion matrix whose element $C_{ij}$ is the number of nodes of community $i$ of the partition $A$ that are also in the community $j$ of the partition $B$.
-        \item Modularity \\
-        It is a criterion for evaluating the quality of community detection.
-    \end{itemize}
+\begin{frame}
+    \Huge{\centerline{\textbf{The End}}}
 \end{frame}
-%------------------------------------------------
-
-% \begin{frame}{References}
-%     % Beamer does not support BibTeX so references must be inserted manually as below
-%     \footnotesize{
-%         \begin{thebibliography}{99}
-%             \bibitem[Smith, 2012]{p1} John Smith (2012)
-%             \newblock Title of the publication
-%             \newblock \emph{Journal Name} 12(3), 45 -- 678.
-%         \end{thebibliography}
-%     }
-% \end{frame}
-
-%------------------------------------------------
-
-% \begin{frame}
-%     \Huge{\centerline{\textbf{The End}}}
-% \end{frame}
 
 %----------------------------------------------------------------------------------------
 
