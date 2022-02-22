@@ -4,23 +4,26 @@
 \documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
 \usetheme{SimplePlus}
 
+\usepackage{algorithm,algorithmic}
 \usepackage{hyperref}
 \usepackage{graphicx} % Allows including images
 \usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
 
 %----------------------------------------------------------------------------------------
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
 
-\title[short title]{Simple Beamer Theme} % The short title appears at the bottom of every slide, the full title is only on the title page
-\subtitle{Subtitle}
+\title[short title]{A multi-objective adaptive evolutionary algorithm to extract communities in networks} % The short title appears at the bottom of every slide, the full title is only on the title page
 
-\author[Pin-Yen] {Pin-Yen Huang}
+\author[Haris-Ali] {Haris Karim Ladhani \& Ali Hamza}
 
-\institute[NTU] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+\institute[HU-CI] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
 {
-    Department of Computer Science and Information Engineering \\
-    National Taiwan University % Your institution for the title page
+    CS 451 - Computational Intelligence \\
+    Habib University % Your institution for the title page
 }
 \date{\today} % Date, can be changed to a custom date
 
@@ -42,119 +45,174 @@
 \end{frame}
 
 %------------------------------------------------
-\section{First Section}
+\section{Introduction}
 %------------------------------------------------
 
-\begin{frame}{Bullet Points}
+\begin{frame}{Introduction}
+\begin{itemize}
+    \item Many complex systems such as social networks, protein networks can be abstracted into networks i.e. large graphs
+    \item Analysis techniques of these networks require studying various patterns within them
+    \item Common patterns include recognizing substructures within the graphs such as cliques
+    \item This paper analyzes a social network data set and attempts to find communities within it via a genetic algorithm to reduce the complexity of the problem
+    \item Communities can be defined by various definitions therefore the paper uses two fitness functions.
+    \item \textit{max(internal links) and min(external links)}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Problem Description}
+    The problem at hand from a CS theoretical point of view is simply a clique, or sub graph, finding problem. 
+    %How to find a clique in a graph
+    %Clique finding - formal algorithm
+    %NP Complete
+\end{frame}
+
+\begin{frame}{Motivation}
+    %Genetic algorithm part of FYP 
+    %Looking for cliques in protient networks
+    %Opportunity to explore non-protein network solutions
+\end{frame}
+
+%------------------------------------------------
+
+%------------------------------------------------
+\section{Genetic Algorithm Formulation}
+%------------------------------------------------
+
+\begin{frame}{Encoding Scheme}
+    
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Chromosome Representation}
+    
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}{Selection}
+   
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}{Crossover}
+   
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}{Mutation}
+   
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}{Fitness Function}
+   
+\end{frame}
+
+\begin{frame}{Elitism}
+    
+\end{frame}
+%------------------------------------------------
+
+\begin{frame}{Algorithm}
+    \begin{algorithm}[H]
+        \begin{algorithmic}[1]
+        \STATE \textbf Input: Adaptive parameters: adaptive crossover probability $p_{c}$ of
+        population $P$, adaptive mutation probability $p_{m}$ of population $P$
+        \STATE $P \leftarrow $ Initialize Population
+        \STATE $E \leftarrow $ Initialize Elite Gene Pool
+        \STATE While Termination != true;
+        \STATE $P_{parent} \leftarrow Select(P)$
+        \STATE $p_{c}, p_{m} \leftarrow Adaptive();$
+        \STATE $p_{cross} \leftarrow Crossover(P_{parent}, p_{c})$
+        \STATE $p_{cross} \leftarrow Mutation(P_{cross}, p_{m})$
+        \STATE $P \leftarrow Update(P_{child})$
+        \STATE Update Elite Gene Pool
+        \STATE End;
+        \STATE \textbf{Output} The results of community detection //{Transforming the most adaptable non-inferior solutions from the elite gene pool into community detection results}
+        \end{algorithmic}
+        \caption{Framework of F-SGCD Algorithm}
+        \label{alg:seq}
+    \end{algorithm}
+\end{frame}
+
+%------------------------------------------------
+
+%------------------------------------------------
+\section{Experimental Results}
+%------------------------------------------------
+
+\begin{frame}{Evaluation Metrics}
     \begin{itemize}
-        \item Lorem ipsum dolor sit amet, consectetur adipiscing elit
-        \item Aliquam blandit faucibus nisi, sit amet dapibus enim tempus eu
-        \item Nulla commodo, erat quis gravida posuere, elit lacus lobortis est, quis porttitor odio mauris at libero
-        \item Nam cursus est eget velit posuere pellentesque
-        \item Vestibulum faucibus velit a augue condimentum quis convallis nulla gravida
+       \item \textbf{Normalized Mutual Information (NMI)}: It is used to measure the similarity between the detected communities and the known communities. Given two partitions $A$ and $B$ of a network in communities, let $C$ be the confusion matrix whose element $C_{ij}$ is the number of nodes of community $i$ of the partition $A$ that are also in the community $j$ of the partition $B$.
+       \item \textbf{Modularity}: It is a criterion for evaluating the quality of community detection.
     \end{itemize}
 \end{frame}
 
 %------------------------------------------------
 
-\begin{frame}{Blocks of Highlighted Text}
-    In this slide, some important text will be \alert{highlighted} because it's important. Please, don't abuse it.
-
-    \begin{block}{Block}
-        Sample text
-    \end{block}
-
-    \begin{alertblock}{Alertblock}
-        Sample text in red box
-    \end{alertblock}
-
-    \begin{examples}
-        Sample text in green box. The title of the block is ``Examples".
-    \end{examples}
+\begin{frame}{Experiments on synthetic LFR networks}
+    \begin{itemize}
+        \item \textbf{Normalized Mutual Information (NMI)}: It is used to measure the similarity between the detected communities and the known communities. Given two partitions $A$ and $B$ of a network in communities, let $C$ be the confusion matrix whose element $C_{ij}$ is the number of nodes of community $i$ of the partition $A$ that are also in the community $j$ of the partition $B$.
+        \item \textbf{Modularity}: It is a criterion for evaluating the quality of community detection.
+    \end{itemize}
 \end{frame}
 
 %------------------------------------------------
 
-\begin{frame}{Multiple Columns}
-    \begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
-
-        \column{.45\textwidth} % Left column and width
-        \textbf{Heading}
-        \begin{enumerate}
-            \item Statement
-            \item Explanation
-            \item Example
-        \end{enumerate}
-
-        \column{.5\textwidth} % Right column and width
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lectus nisl, ultricies in feugiat rutrum, porttitor sit amet augue. Aliquam ut tortor mauris. Sed volutpat ante purus, quis accumsan dolor.
-
-    \end{columns}
-\end{frame}
-
-%------------------------------------------------
-\section{Second Section}
-%------------------------------------------------
-
-\begin{frame}{Table}
-    \begin{table}
-        \begin{tabular}{l l l}
-            \toprule
-            \textbf{Treatments} & \textbf{Response 1} & \textbf{Response 2} \\
-            \midrule
-            Treatment 1         & 0.0003262           & 0.562               \\
-            Treatment 2         & 0.0015681           & 0.910               \\
-            Treatment 3         & 0.0009271           & 0.296               \\
-            \bottomrule
-        \end{tabular}
-        \caption{Table caption}
-    \end{table}
+\begin{frame}{Experiments on synthetic real-world networks}
+    \begin{itemize}
+        \item Normalized Mutual Information (NMI) \\
+        It is used to measure the similarity between the detected communities and the known communities. Given two partitions $A$ and $B$ of a network in communities, let $C$ be the confusion matrix whose element $C_{ij}$ is the number of nodes of community $i$ of the partition $A$ that are also in the community $j$ of the partition $B$.
+        \item Modularity \\
+        It is a criterion for evaluating the quality of community detection.
+    \end{itemize}
 \end{frame}
 
 %------------------------------------------------
 
-\begin{frame}{Theorem}
-    \begin{theorem}[Mass--energy equivalence]
-        $E = mc^2$
-    \end{theorem}
+\begin{frame}{Network hierarchy of Pareto solution}
+    \begin{itemize}
+        \item Hierarchal Modularity \\
+        It is used to measure the similarity between the detected communities and the known communities. Given two partitions $A$ and $B$ of a network in communities, let $C$ be the confusion matrix whose element $C_{ij}$ is the number of nodes of community $i$ of the partition $A$ that are also in the community $j$ of the partition $B$.
+        \item Bottlenose Dolphins \\
+        It is a criterion for evaluating the quality of community detection.
+    \end{itemize}
 \end{frame}
 
 %------------------------------------------------
+\section{Conclusion}
+%------------------------------------------------
 
-\begin{frame}{Figure}
-    Uncomment the code on this slide to include your own image from the same directory as the template .TeX file.
-    %\begin{figure}
-    %\includegraphics[width=0.8\linewidth]{test}
-    %\end{figure}
+\begin{frame}{Conclusion}
+    \begin{itemize}
+        \item Normalized Mutual Information (NMI) \\
+        It is used to measure the similarity between the detected communities and the known communities. Given two partitions $A$ and $B$ of a network in communities, let $C$ be the confusion matrix whose element $C_{ij}$ is the number of nodes of community $i$ of the partition $A$ that are also in the community $j$ of the partition $B$.
+        \item Modularity \\
+        It is a criterion for evaluating the quality of community detection.
+    \end{itemize}
 \end{frame}
+%------------------------------------------------
+
+% \begin{frame}{References}
+%     % Beamer does not support BibTeX so references must be inserted manually as below
+%     \footnotesize{
+%         \begin{thebibliography}{99}
+%             \bibitem[Smith, 2012]{p1} John Smith (2012)
+%             \newblock Title of the publication
+%             \newblock \emph{Journal Name} 12(3), 45 -- 678.
+%         \end{thebibliography}
+%     }
+% \end{frame}
 
 %------------------------------------------------
 
-\begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
-    \frametitle{Citation}
-    An example of the \verb|\cite| command to cite within the presentation:\\~
-
-    This statement requires citation \cite{p1}.
-\end{frame}
-
-%------------------------------------------------
-
-\begin{frame}{References}
-    % Beamer does not support BibTeX so references must be inserted manually as below
-    \footnotesize{
-        \begin{thebibliography}{99}
-            \bibitem[Smith, 2012]{p1} John Smith (2012)
-            \newblock Title of the publication
-            \newblock \emph{Journal Name} 12(3), 45 -- 678.
-        \end{thebibliography}
-    }
-\end{frame}
-
-%------------------------------------------------
-
-\begin{frame}
-    \Huge{\centerline{\textbf{The End}}}
-\end{frame}
+% \begin{frame}
+%     \Huge{\centerline{\textbf{The End}}}
+% \end{frame}
 
 %----------------------------------------------------------------------------------------
 
