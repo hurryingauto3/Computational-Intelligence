@@ -6,6 +6,7 @@
 
 \usepackage{algorithm,algorithmic}
 \usepackage{hyperref}
+\usepackage{amsmath}
 \usepackage{graphicx} % Allows including images
 \usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
 
@@ -81,8 +82,7 @@
 \begin{frame}{Chromosome Representation}
     \begin{itemize}
         \item an array of $N$, number of nodes in the graph, genomes and each gene ranges from 1 to $N$
-        \item there are 2 vertices, i and j, and they are adjacent.
-        \item 
+        \item there are 2 vertices, i and j, and they are adjacent. 
     \end{itemize}
 \end{frame}
 
@@ -90,7 +90,10 @@
 
 \begin{frame}{Selection}
     \begin{itemize}
-        \item 
+        \item Roulette Wheel \\
+        \[g_{avg} = \frac{g_{1} + g_{2} + ... + g_{N}}{}\]
+        \[\sigma = \sqrt{\frac{1}{n}(\sum_{i=1}^{N}(g_{i} - g_{avg})^{2})\]
+        \[\omega = \frac{g_{avg} + 1}{\delta}\]
     \end{itemize}
 \end{frame}
 
