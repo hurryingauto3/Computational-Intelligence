@@ -4,24 +4,26 @@
 \documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
 \usetheme{SimplePlus}
 
+\usepackage{algorithm,algorithmic}
 \usepackage{hyperref}
 \usepackage{graphicx} % Allows including images
 \usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
 
 %----------------------------------------------------------------------------------------
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
 
-\title[short title]{Simple Beamer Theme} % The short title appears at the bottom of every slide, the full title is only on the title page
-\subtitle{Subtitle}
+\title[short title]{A multi-objective adaptive evolutionary algorithm to extract communities in networks} % The short title appears at the bottom of every slide, the full title is only on the title page
 
-\author[Haris-Ali] {Haris Karim Ladhani
-                    Ali Hamza}
+\author[Haris-Ali] {Haris Karim Ladhani \& Ali Hamza}
 
-\institute[NTU] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+\institute[HU-CI] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
 {
-    Department of Computer Science and Information Engineering \\
-    National Taiwan University % Your institution for the title page
+    CS 451 - Computational Intelligence \\
+    Habib University % Your institution for the title page
 }
 \date{\today} % Date, can be changed to a custom date
 
@@ -43,7 +45,7 @@
 \end{frame}
 
 %------------------------------------------------
-\section{First Section}
+\section{Introduction}
 %------------------------------------------------
 
 \begin{frame}{Bullet Points}
@@ -94,7 +96,7 @@
 \end{frame}
 
 %------------------------------------------------
-\section{Second Section}
+\section{Related Work}
 %------------------------------------------------
 
 \begin{frame}{Table}
@@ -128,6 +130,49 @@
     %\includegraphics[width=0.8\linewidth]{test}
     %\end{figure}
 \end{frame}
+
+%------------------------------------------------
+\section{Algorithmic Solution}
+%------------------------------------------------
+
+\begin{frame}{Algorithm}
+    \begin{algorithm}[H]
+        \begin{algorithmic}[1]
+        \STATE \textbf{Initialization:} Adaptive parameters: adaptive crossover probability $p_{c}$ of
+        population $P$, adaptive mutation probability $p_{m}$ of population $P$
+        \STATE $P \leftarrow Initialization(Population);$
+        \STATE While $Termination(Generation)$;
+        \STATE $P_{parent} \leftarrow Select(P)$
+        \STATE $p_{c}, p_{m} \leftarrow Adaptive();$
+        \STATE $p_{cross} \leftarrow Crossover(P_{parent}, p_{c})$
+        \STATE $p_{cross} \leftarrow Mutation(P_{cross}, p_{m})$
+        \STATE $P \leftarrow Update(P_{child})$
+        \STATE $ElitePool();//$ {Update the elite gene poolg}
+        \STATE End;
+        \STATE \textbf{return} The results of community detection //{Transforming the most adaptable non-inferior solutions from the elite gene pool into community detection results}
+        \end{algorithmic}
+        \caption{Framework of F-SGCD Algorithm}
+        \label{alg:seq}
+    \end{algorithm}
+\end{frame}
+
+%------------------------------------------------
+
+%------------------------------------------------
+\section{Experimental Results}
+%------------------------------------------------
+
+\begin{frame}{Graphs}
+    \begin{itemize}
+        \item Lorem ipsum dolor sit amet, consectetur adipiscing elit
+        \item Aliquam blandit faucibus nisi, sit amet dapibus enim tempus eu
+        \item Nulla commodo, erat quis gravida posuere, elit lacus lobortis est, quis porttitor odio mauris at libero
+        \item Nam cursus est eget velit posuere pellentesque
+        \item Vestibulum faucibus velit a augue condimentum quis convallis nulla gravida
+    \end{itemize}
+\end{frame}
+
+%------------------------------------------------
 
 %------------------------------------------------
 
