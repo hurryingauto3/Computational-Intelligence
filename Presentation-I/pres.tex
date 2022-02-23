@@ -97,38 +97,35 @@
     \end{itemize}
 \end{frame}
 
-%------------------------------------------------
-
-\begin{frame}{Crossover}
-    \begin{itemize}
-        \item 
-    \end{itemize}
-\end{frame}
-
-%------------------------------------------------
-
-\begin{frame}{Mutation}
-    \begin{itemize}
-        \item 
-    \end{itemize}
-\end{frame}
-
-%------------------------------------------------
-
 \begin{frame}{Fitness Function}
-    \begin{itemize}
-        \item 
-    \end{itemize}
+   
+\end{frame}
+
+
+\begin{frame}{Adaptive Crossover and Mutation}
+The crossover function is adaptive, based on various parameters and occurs based on various circumstances such: 
+\begin{itemize}
+    \item Individuals with poor fitness are more likely to crossover
+    \item Individuals with high fitness are less likely to crossover near the termination of algorithm
+    \item Individuals with high fitness but are more likely to mutate near the termination of algorithm
+    \item Populations with low deviation in fitness are less likely to crossover and more likely to mutate
+    \item Populations with high deviation in fitness are more likely to crossover and less likely to mutate 
+\end{itemize}
+\newpage
+The probabilities of these two events can be defined as follows:
+$$p_c = 0.5 \times \frac{1}{1+e^{\frac{-k_1}{\omega}}} + 0.4$$
+$$p_m = \frac{k_2}{5\times(1+3^{\frac{1}{\omega}})}$$
+
+where $k_1 \in (1, \infty), k_2 \in (0,1)$
+
 \end{frame}
 
 %------------------------------------------------
 
-\begin{frame}{Elitism}
-    \begin{itemize}
-        \item 
-    \end{itemize}
+\begin{frame}{Method of Crossover \& Mutation}
+   
 \end{frame}
-%------------------------------------------------
+
 
 \begin{frame}{Algorithm}
     \begin{algorithm}[H]
