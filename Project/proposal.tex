@@ -8,12 +8,10 @@
 \usepackage{mathptmx}
 \usepackage{graphicx}
 \usepackage[usenames,dvipsnames]{xcolor}
+\newcommand{\bibent}{\noindent \hangindent 40pt}
+\newenvironment{reference}{\newpage \section*{References} }{\newpage }
 \newcommand{\blue}[1]{\textcolor{RoyalBlue}{#1}}
-\newcommand{\fillme}[1]{\blue{\texttt{[Insert #1]}}}
-\newcommand{\instructions}[1]{\blue{\textit{#1}}}
-% uncomment the next two lines if you want the instructions to disappear.
-\renewcommand{\instructions}[1]{}
-\renewcommand{\fillme}[1]{}
+
 
 \begin{document}
 
@@ -42,7 +40,8 @@ Samson, Synclair Saqib\\
 \section*{Datasets} 
 
 
-\section*{Bibliography}
+\begin{reference}
+  \bibent
 
-\bibliographystyle{plain}  
+\end{reference}
 \end{document}
