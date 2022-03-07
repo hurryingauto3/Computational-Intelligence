@@ -61,19 +61,19 @@
 
 \end{frame}
 
-\begin{frame}{Problem Description}
-    The problem at hand from a CS theoretical point of view is simply a clique, or sub graph, finding problem. 
+\begin{frame}{Problem Description \& Motivation}
     %How to find a clique in a graph
     %Clique finding - formal algorithm
+    \begin{itemize}
+    \item The problem at hand from a CS theoretical point of view is simply a clique, or sub graph, finding problem which is an NP Complete Problem 
+    \item We are working on a very simple problem in our FYP within the context of protein networks and trying to find substructures within the network to attempt to identify protein complexes. 
+    \item Therefore, the motivation is to understand a general approach to solving graph theoretic problems with genetic algorithm
+    \end{itemize}
     %NP Complete
-\end{frame}
-
-\begin{frame}{Motivation}
     %Genetic algorithm part of FYP 
     %Looking for cliques in protient networks
     %Opportunity to explore non-protein network solutions
 \end{frame}
-
 %------------------------------------------------
 
 %------------------------------------------------
@@ -92,43 +92,69 @@
     \begin{itemize}
         \item Roulette Wheel \\
         \[g_{avg} = \frac{g_{1} + g_{2} + ... + g_{N}}{}\]
-        \[\sigma = \sqrt{\frac{1}{n}(\sum_{i=1}^{N}(g_{i} - g_{avg})^{2})\]
+        \[\sigma = \sqrt{\frac{1}{n}(\sum_{i=1}^{N}(g_{i} - g_{avg})^{2}})\]
         \[\omega = \frac{g_{avg} + 1}{\delta}\]
     \end{itemize}
 \end{frame}
 
-%------------------------------------------------
-
-\begin{frame}{Crossover}
-    \begin{itemize}
-        \item 
-    \end{itemize}
-\end{frame}
-
-%------------------------------------------------
-
-\begin{frame}{Mutation}
-    \begin{itemize}
-        \item 
-    \end{itemize}
-\end{frame}
-
-%------------------------------------------------
-
 \begin{frame}{Fitness Function}
-    \begin{itemize}
-        \item 
-    \end{itemize}
+
+    We construct two objective functions, namely community fitness function and community score function.
+
 \end{frame}
 
-%------------------------------------------------
+\begin{frame}{Fitness Function 1}
+    The first objective function is to minimize community fitness value
+    $$fitness = \sum_{j=1}^{k}p(S_j)$$
+    $$P(S_j) = \sum_{i\in S} \frac{k^{in}_i(S)}{k^{in}_i(S) + k_i^{out}(S)}$$
+  \end{frame}
+  
+\begin{frame}{Fitness Function 2}
+  The second objective function is to maximize the community fitness value
+    $$CS = \sum_{i=1}^k score(S_i)$$
+    $$score(S) = M(S)\times E_s$$
+    $$M(S) = \frac{\sum_{i\inS}(u_i)^r}{|S|}$$
+    $$u_i = \frac{1}{|S|}k^{in}_i(S)$$
+     
+ \end{frame}
+\begin{frame}{Adaptive Crossover and Mutation}
+The crossover function is adaptive, based on various parameters and occurs based on various circumstances such: 
+\begin{itemize}
+    \item Individuals with poor fitness are more likely to crossover
+    \item Individuals with high fitness are less likely to crossover near the termination of algorithm
+    \item Individuals with high fitness but are more likely to mutate near the termination of algorithm
+    \item Populations with low deviation in fitness are less likely to crossover and more likely to mutate
+    \item Populations with high deviation in fitness are more likely to crossover and less likely to mutate 
+\end{itemize}
+\newpage
+\end{frame}
+\begin{frame}{Adaptive Crossover and Mutation}
+The probabilities of these two events can be defined as follows:
+$$p_c = 0.5 \times \frac{1}{1+e^{\frac{-k_1}{\omega}}} + 0.4$$
+$$p_m = \frac{k_2}{5\times(1+3^{\frac{1}{\omega}})} where \;\; k_1 \in (1, \infty), k_2 \in (0,1)$$
 
-\begin{frame}{Elitism}
-    \begin{itemize}
-        \item 
-    \end{itemize}
+
+    
 \end{frame}
 %------------------------------------------------
+
+\begin{frame}{Method of Crossover \& Mutation}
+\begin{itemize}
+    \item Firstly, a binary cross-module of length N (number of vertices) is
+generated randomly.
+\item Each value on the cross-module is 0 or 1. 
+\item For each gene of offspring C, if a position on the cross-module is 1, the corresponding allele
+260 value in the parent B is inherited.
+\item If a position on the cross-module is 0, the
+corresponding allele value in the parent A is inherited, while the opposite is
+true for the offspring D.
+\item The mutation operation is as follows. For the individual to be mutated, a
+gene is randomly selected by adaptive mutation probability pm, and the allele
+value of the gene is changed to its corresponding arbitrary adjacent vertex.
+\end{itemize}
+   
+\end{frame}
+
 
 \begin{frame}{Algorithm}
     \begin{algorithm}[H]
