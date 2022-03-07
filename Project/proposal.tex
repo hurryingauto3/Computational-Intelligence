@@ -1,0 +1,75 @@
+\documentclass[11pt,letterpaper]{article}
+\oddsidemargin 0in
+\evensidemargin 0in
+\textwidth 6.5in
+\topmargin -0.5in
+\textheight 9.0in
+\usepackage{hyperref}
+\usepackage{mathptmx}
+\usepackage{graphicx}
+\usepackage[usenames,dvipsnames]{xcolor}
+\newcommand{\blue}[1]{\textcolor{RoyalBlue}{#1}}
+\newcommand{\fillme}[1]{\blue{\texttt{[Insert #1]}}}
+\newcommand{\instructions}[1]{\blue{\textit{#1}}}
+% uncomment the next two lines if you want the instructions to disappear.
+\renewcommand{\instructions}[1]{}
+\renewcommand{\fillme}[1]{}
+
+\begin{document}
+
+\title{CS412 - Project Proposal \fillme{Your Project}}
+\author{Ladhani, Haris Karim\\
+\texttt{hl04349@st.habib.edu.pk}
+\and
+Hamza, Ali\\
+\texttt{ah05084@st.habib.edu.pk}
+\and
+Samson, Synclair Saqib\\
+\texttt{ss05901@st.habib.edu.pk}
+}
+\maketitle
+
+
+
+\instructions{If you are taking CS446 for 4 hours credit, you need to
+  do a research project.\\
+This is a \LaTeX template for the initial proposal,  but should also give you a start on the final report.\\
+The blue pieces of text  in this template are either instructions ({\tt$\backslash$instructions\{...\}}) or indicate where you need to fill in something ({\tt$\backslash$fillme\{...\}}).  
+You should replace all the {\tt$\backslash$fillme\{...\}} commands with your own text.
+To make the instructions disappear, please uncomment the 
+\begin{center}
+{\tt$\backslash$renewcommand\{$\backslash$instructions\}[1]\{\}}\\
+%{\tt$\backslash$renewcommand\{$\backslash$fillme\}[1]\{\}}\\
+\end{center}
+lines in the preamble (just above  {\tt $\backslash$begin\{document\}} of this .tex file) by removing the leading \% marks, 
+recompile (run \LaTeX again) and submit the PDF on Compass.\\
+The template for the final report is at
+\url{http://courses.engr.illinois.edu/cs446/Projects/CS446proj.tex}
+(or
+\url{http://courses.engr.illinois.edu/cs446/Projects/CS446proj.pdf}
+for the pdf)
+}
+\section*{Problem description}
+\instructions{Describe the task you want to tackle in your project.}
+
+\section*{CI techniques}
+\instructions{Has there been any prior work on this task? If so,
+  provide references where available}
+
+\section*{Final outcome \& visualization}
+\instructions{Do you have data to train and test your system on? How
+  will you evaluate your system?}
+
+\section*{Datasets} 
+\instructions{Describe how you want to tackle this task}
+
+\section*{Bibliography}
+\instructions{If you need references for the background section, don't forget to create your own .bib file, and run {\tt bibtex}. If you call your bibliography {\tt mybib.bib} and put it in the same directory as this {\tt .tex} file, add {\tt$\backslash$bibliography\{mybib\}} before {\tt$\backslash$end\{document\}}
+}
+\bibliographystyle{plain}  
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
