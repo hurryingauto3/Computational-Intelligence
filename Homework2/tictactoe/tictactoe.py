@@ -85,6 +85,8 @@ def getCornerMove(board,playerLetter):
     return getUnintelligentMove(boardCopy,playerLetter)
                 
 
+def getMove(board, playerLetter):
+    # Use PSO to get the best move
 #--------------------------------------------------------------
 print('Welcome to Tic Tac Toe!')
 #Play(getPlayerMove, getPlayerMove)        #Two key-board players game

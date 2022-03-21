@@ -79,7 +79,6 @@ def isBoardFull(board):
         if isSpaceFree(board, i):
             return False
     return True
-
  
 def Play(playe1Strategy, player2Strategy, visibleMode=True):
     theBoard = [' '] * 10
